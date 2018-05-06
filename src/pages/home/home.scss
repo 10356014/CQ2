@@ -1,3 +1,72 @@
 page-home {
 
 }
+
+
+/*---------------------------*/
+/* 定義內容                   */
+/*---------------------------*/
+.content{
+   max-width:100%;
+   background-color: #c4d4e5;
+}
+.keyboard{
+   background-color: #b4c6da;
+   margin:8px;
+   height:385px;
+   padding:10px;
+   border: 2px solid #adaeaf;
+   border-radius: 10px;
+
+}
+
+.display{
+  margin:10px 5px 10px 5px;
+  height:55px;
+  background-color: #ffffff;
+  opacity:0.5;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+.grid{
+  margin:0px;
+}
+.grid .button{
+  margin:0px;
+  width:100%;
+  border: none;
+  border-radius: 2px;
+  box-shadow: 0 9px #999;
+  background-color:#6281a2;
+}
+.grid .button:hover {background-color: #344557}
+
+.grid .button:active {
+  background-color: #344557;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+.keyboard .col{
+  border-radius: 2px;
+  text-align: center;
+  height:65px;
+  background-color:#b4c6da;
+}
+
+.common{
+  margin:0px;
+}
+.common .col{
+   padding: 5px;
+   text-align: center;
+}
+.common .button{
+  height:60px;
+  background-color: #e13131;
+  margin:10px 10px;
+  font-size:25px;
+  margin:0px;
+  width:80%;
+}
+
+
