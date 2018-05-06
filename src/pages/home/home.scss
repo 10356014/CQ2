@@ -23,7 +23,7 @@ page-home {
 /*---------------------------*/
 .content{
    max-width:100%;
-   background-color: #c4d4e5;
+   background-color: #ccced1;
 }
 .keyboard{
    background-color: #b4c6da;
@@ -82,6 +82,12 @@ page-home {
   font-size:25px;
   margin:0px;
   width:80%;
+}
+.common .button:hover {background-color: #b12525}
+
+.common .button:active {
+  background-color: #b12525;
+
 }
 
 
