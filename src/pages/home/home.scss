@@ -1,40 +1,27 @@
-page-home {
 
-}
-.header .button{
-  width:10px;
-  height:45px;
-  background:none;
-  border:none;
-  color:#000000;
-  font-size: 20px;
-  margin:0;
-  clear: right;
-  position: fixed;
-  top:15px;
-  left: 0;
-}
 .header .title{
   text-align:center;
+  clear: both;
+  margin: auto;
 }
+
 
 /*---------------------------*/
 /* 定義內容                   */
 /*---------------------------*/
 .content{
    max-width:100%;
-   background-color: #e6e7e8;
+   background:linear-gradient(10deg,#4E5EFC,#4EE7FC);
 }
 .number .label{
   color:red;
 }
 .keyboard{
-   background-color: #b4c6da;
+   background: rgba(232,230,230,0.4px);
    margin:8px;
-   height:385px;
+   height:380px;
    padding:10px;
-   border: 2px solid #adaeaf;
-   border-radius: 10px;
+   border-radius: 20px;
 
 }
 
@@ -53,22 +40,21 @@ page-home {
   margin:0px;
   width:100%;
   border: none;
-  border-radius: 2px;
-  box-shadow: 0 9px #999;
-  background-color:#6281a2;
+  border-style:hidden;
+  background: rgba(232,230,230,0.01px);
+  border-radius: 5px;
+  
 }
-.grid .button:hover {background-color: #344557}
+
 
 .grid .button:active {
-  background-color: #344557;
-  box-shadow: 0 5px #666;
-  transform: translateY(4px);
+  background: rgba(125,125,125,0.5px);
 }
 .keyboard .col{
   border-radius: 2px;
   text-align: center;
   height:65px;
-  background-color:#b4c6da;
+  
 }
 
 .common{
@@ -79,23 +65,15 @@ page-home {
    text-align: center;
 }
 .common .button{
-  height:60px;
-  background-color: #e13131;
+  height:45px;
+  background: rgba(255,79,49,0.8px);
   margin:10px 10px;
   font-size:25px;
   margin:0px;
   width:80%;
 }
-.common .button:hover {background-color: #b12525}
 
 .common .button:active {
-  background-color: #b12525;
-
-}
-.number .label{
-  margin:0px;
-  clear:left;
-  width:10px;
-  background:#344557;
+  background: rgba(130,28,28,0.8px);
 }
 
