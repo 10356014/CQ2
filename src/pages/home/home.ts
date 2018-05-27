@@ -8,7 +8,9 @@ import { KeyboardPage } from '../keyboard/keyboard';
   templateUrl: 'home.html'
 })
 export class HomePage {
-
+  name:any;
+  city:any;
+  
   constructor(public navCtrl: NavController,public alertCtrl: AlertController) {
 
   }
@@ -16,7 +18,7 @@ export class HomePage {
   doConfirm() {
     let confirm = this.alertCtrl.create({
       title: '提示',
-      message: '確認所選店鋪為台北市大同店?',
+      message: '所選店鋪為「' + this.city + this.name + '」?',
       buttons: [
         {
           text: '返回',
