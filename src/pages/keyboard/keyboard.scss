@@ -1,6 +1,6 @@
 @import url(//fonts.googleapis.com/earlyaccess/notosanstc.css);
 .toolbar-background { background-color:rgba(255, 0, 0, 0)   !important; }
-.ion-header {height: 5px   !important;}
+
 
 
 .header .title{
@@ -46,11 +46,11 @@
   font-size:310%;
   line-height:55px;
 }
-
-.grid{
+//---------------------
+.keyboard .grid{
   margin:0px;
 }
-.grid .button{
+.keyboard .button{
   margin:0px;
   width:100%;
   border: none;
@@ -62,7 +62,7 @@
 }
 
 
-.grid .button:active {
+.keyboard .button:active {
   background: rgba(125,125,125,0.5px);
   
 }
@@ -72,23 +72,26 @@
   height:65px;
   
 }
-
-.common{
-  margin:0px;
+///----------------------
+.common .grid{
+  margin: auto;
+  padding: 0px;
 }
 .common .col{
-   padding: 5px;
-   text-align: center;
+  text-align: center;
+  margin:auto;
 }
 .common .button{
-  height:45px;
+  height:50px;
   background: rgba(255,79,49,0.8px);
-  margin:10px 10px;
+  margin:auto ;
   font-size:25px;
-  margin:0px;
-  width:80%;
+  width:100%;
   font-family: 'Noto Sans TC', sans-serif;
   font-weight:100;
+  border: none;
+  border-radius: 5px;
+  float: left;
 }
 
 .common .button:active {
