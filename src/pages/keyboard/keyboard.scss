@@ -67,26 +67,28 @@
   
 }
 .keyboard .col{
+  border-radius: 2px;
   text-align: center;
   height:65px;
+  
 }
 
 .common{
   margin:0px;
 }
 .common .col{
-  padding: 5px;
-  text-align: center;
+   padding: 5px;
+   text-align: center;
 }
 .common .button{
   height:45px;
   background: rgba(255,79,49,0.8px);
-  margin:10px;
+  margin:10px 10px;
   font-size:25px;
+  margin:0px;
   width:80%;
   font-family: 'Noto Sans TC', sans-serif;
   font-weight:100;
-  width:85%;
 }
 
 .common .button:active {

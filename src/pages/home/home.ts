@@ -8,29 +8,15 @@ import { KeyboardPage } from '../keyboard/keyboard';
   templateUrl: 'home.html'
 })
 export class HomePage {
-<<<<<<< HEAD
-  name:any; 
-  city:any; 
-=======
+
   name:any;
   city:any;
 
->>>>>>> master
   constructor(public navCtrl: NavController,public alertCtrl: AlertController) {
 
   }
  
   doConfirm() {
-<<<<<<< HEAD
-    let confirm = this.alertCtrl.create({
-      title: '提示',
-      message: '所選店鋪為「' + this.city + this.name + '」?', 
-      buttons: [
-        {
-          text: '返回',
-          handler: () => {
-            console.log('Disagree clicked');
-=======
     if (this.city == undefined || this.name == undefined) {
       let confirm = this.alertCtrl.create({
         title: '提示',
@@ -41,7 +27,7 @@ export class HomePage {
             handler: () => {
               console.log('Disagree clicked');
             }
->>>>>>> master
+
           }
         ] 
       });
