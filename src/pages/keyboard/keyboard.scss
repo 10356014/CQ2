@@ -1,100 +1,87 @@
 @import url(//fonts.googleapis.com/earlyaccess/notosanstc.css);
 .toolbar-background { background-color:rgba(255, 0, 0, 0)   !important; }
 
-
-
-.header .title{
-  font-family: 'Noto Sans TC', sans-serif;
-  font-weight:200;
-  text-align:center;
-  clear: both;
-  margin: auto;
-}
-
-
 /*---------------------------*/
 /* 定義內容                   */
 /*---------------------------*/
 .content{
-   max-width:100%;
-   background:linear-gradient(10deg,#4E5EFC,#4EE7FC);
+    max-width:100%;
+    background:linear-gradient(10deg,#4E5EFC,#4EE7FC);
+}
+
+.number{ 
+    margin: 7px;
+    margin-top: 120px;
+    margin-bottom: 20px;
    
-}
-.number{
-  font-family: 'Noto Sans TC', sans-serif;
-  font-weight:200;
-}
-.keyboard{
-   background: rgba(232,230,230,0.4px);
-   margin:8px;
-   height:380px;
-   padding:10px;
-   border-radius: 20px;
-   font-family: 'Noto Sans TC', sans-serif;
-   font-weight:500;
-}
+    font-family: 'Noto Sans TC', sans-serif;
+    font-weight:200;
+    font-size: 50px;
+    font-weight: bold;
+    background: rgba(232,230,230,0.4px);
+    padding:10px;
+    border-radius: 20px;
 
-.display{
-  margin:10px 5px 10px 5px;
-  padding:0px 15px 0px 5px;
-  height:55px;
-  background-color: #ffffff;
-  opacity:0.5;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  text-align:right; 
-  font-size:310%;
-  line-height:55px;
-}
-//---------------------
-.keyboard .grid{
-  margin:0px;
-}
-.keyboard .button{
-  margin:0px;
-  width:100%;
-  border: none;
-  border-style:hidden;
-  background: rgba(232,230,230,0.01px);
-  border-radius: 5px;
-  font-family: 'Noto Sans TC', sans-serif;
-  
-}
-
-
-.keyboard .button:active {
-  background: rgba(125,125,125,0.5px);
-  
-}
-.keyboard .col{
-  border-radius: 2px;
-  text-align: center;
-  height:65px;
-  
 }
 ///----------------------
 .common .grid{
-  margin: auto;
-  padding: 0px;
-}
+    margin: auto;
+    padding: 0px;
+  }
 .common .col{
-  text-align: center;
-  margin:auto;
-}
+    text-align: center;
+    margin:auto;
+  }
 .common .button{
-  height:50px;
-  background: rgba(255,79,49,0.8px);
-  margin:auto ;
-  font-size:25px;
-  width:100%;
-  font-family: 'Noto Sans TC', sans-serif;
-  font-weight:100;
-  border: none;
-  border-radius: 5px;
-  float: left;
+    height:50px;
+    background: rgba(255,79,49,0.8px);
+    margin:auto;
+    margin-bottom: 20px;
+    font-size:25px;
+    width:100%;
+    font-family: 'Noto Sans TC', sans-serif;
+    font-weight:200;
+    border: none;
+    float: left;
+    border-radius: 50px;
+}
+  
+.common .button:active {
+    background: rgba(130,28,28,0.8px);
+}
+  
+  //---------------------
+
+.keyboard{
+    background: rgba(232,230,230,0.2px);
+    margin:8px;
+    height:230px;
+    padding:10px;
+    border-radius: 20px;
+    font-family: 'Noto Sans TC', sans-serif;
+    font-weight:500;
+}
+.inputNum .input{
+    height: 100px;
+    color: #4EE7FC;
+}
+.inputNum .button{
+    height:50px;
+    background: rgba(68,114,196,0.9);
+    color: #FFFEFF;
+    margin:auto;
+    margin-bottom: 20px;
+    margin-top: 25px;
+    font-size:25px;
+    width:30%;
+    font-family: 'Noto Sans TC', sans-serif;
+    font-weight:200;
+    border: none;
+    border-radius: 50px;
+}
+.inputNum .button:active {
+    background: rgba(40,71,128,0.9px);
 }
 
-.common .button:active {
-  background: rgba(130,28,28,0.8px);
-}
+
 
