@@ -27,9 +27,9 @@
     <div class ="keyboard">
     <h2>輸入號碼</h2>
         <div class="inputNum">
-            <input type="number">
+            <ion-input type="number"[(ngModel)]="manualInput" max=999 min=1></ion-input>
             <div class="padding">
-                <button class="button button-block button-positive">確認</button>
+                <button class="button button-block button-positive" (click)="loadData()">確認</button>
             </div>
 
         </div>
@@ -38,7 +38,7 @@
 
 </ion-content>
 
-
+<!-- (click)="loadData()")-->
 
 
 

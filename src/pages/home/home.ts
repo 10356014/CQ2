@@ -15,7 +15,7 @@ export class HomePage {
   constructor(public navCtrl: NavController,public alertCtrl: AlertController) {
 
   }
- 
+  
   doConfirm() {
     if (this.city == undefined || this.name == undefined) {
       let confirm = this.alertCtrl.create({

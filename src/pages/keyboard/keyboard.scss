@@ -11,7 +11,7 @@
 
 .number{ 
     margin: 7px;
-    margin-top: 120px;
+    margin-top: 70px;
     margin-bottom: 20px;
    
     font-family: 'Noto Sans TC', sans-serif;
@@ -21,7 +21,6 @@
     background: rgba(232,230,230,0.4px);
     padding:10px;
     border-radius: 20px;
-
 }
 ///----------------------
 .common .grid{
@@ -33,7 +32,7 @@
     margin:auto;
   }
 .common .button{
-    height:50px;
+    height:60px;
     background: rgba(255,79,49,0.8px);
     margin:auto;
     margin-bottom: 20px;
@@ -47,7 +46,7 @@
 }
   
 .common .button:active {
-    background: rgba(130,28,28,0.8px);
+    background: rgba(130,28,28,0.7px);
 }
   
   //---------------------
@@ -55,15 +54,16 @@
 .keyboard{
     background: rgba(232,230,230,0.2px);
     margin:8px;
-    height:230px;
+    height:250px;
     padding:10px;
     border-radius: 20px;
     font-family: 'Noto Sans TC', sans-serif;
     font-weight:500;
 }
 .inputNum .input{
-    height: 100px;
-    color: #4EE7FC;
+    height: 50px;
+    font-size: 28px;
+    background: #fff8ed80;    
 }
 .inputNum .button{
     height:50px;
@@ -80,7 +80,7 @@
     border-radius: 50px;
 }
 .inputNum .button:active {
-    background: rgba(40,71,128,0.9px);
+    background: rgba(40,71,128,0.98px);
 }
 
 
