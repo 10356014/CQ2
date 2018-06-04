@@ -31,7 +31,7 @@ export class KeyboardPage {
     loadData() {
         if (this.manualInput>999) {
           let confirm = this.alertCtrl.create({
-            title: '警告',
+            title: '提示',
             message: '不可超過999',
             buttons: [
               {
