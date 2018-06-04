@@ -1,24 +1,22 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<ion-header>
-    <ion-navbar>
-        <ion-title>
-        CQ2 叫號系統
-        </ion-title>
-    </ion-navbar>
-</ion-header>
-
-  
+  <ion-header>
+      <ion-navbar>
+          <ion-title>
+          CQ2 叫號系統
+          </ion-title>
+      </ion-navbar>
+  </ion-header>
 
 
-<ion-content>
+  <ion-content>
     <div class="number">
         當前號碼:01
     </div>
     <div class="common">
         <ion-grid>
           <ion-row>
-            <ion-col ><button ion-button >預約客</button></ion-col>
-            <ion-col ><button ion-button>+1</button></ion-col>
+            <ion-col ><button ion-button (click)="postVIP()">預約客</button></ion-col>
+            <ion-col ><button ion-button (click)="postCus()">+1</button></ion-col>
           </ion-row>
         </ion-grid>
     </div>
@@ -31,14 +29,13 @@
             <div class="padding">
                 <button class="button button-block button-positive" (click)="loadData()">確認</button>
             </div>
-
         </div>
     </div>
-    
+  </ion-content>
 
-</ion-content>
 
-<!-- (click)="loadData()")-->
+
+
 
 
 
