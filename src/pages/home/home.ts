@@ -15,7 +15,11 @@ export class HomePage {
   constructor(public navCtrl: NavController,public alertCtrl: AlertController) {
 
   }
-  
+  getData($name){
+    if (this.city=1){
+      this.name="台北店";
+    }
+  }
   doConfirm() {
     if (this.city == undefined || this.name == undefined) {
       let confirm = this.alertCtrl.create({

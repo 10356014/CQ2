@@ -8,20 +8,31 @@
       登入
     </ion-card-header>
     <ion-card-content>
+      
       <ion-item>
         <ion-label>店鋪縣市</ion-label>
-        <ion-select [(ngModel)]="city">
-          <ion-option >台北市</ion-option>
-          <ion-option>新北市</ion-option>
+        <ion-select [(ngModel)]="city" id="city" onchange="getData();">
+          <ion-option>台北</ion-option>
+          <!--
+          <ion-option value="2">新北</ion-option>
+          <ion-option value="3">基隆</ion-option>
+          <ion-option value="4">桃市</ion-option>
+          <ion-option value="5">宜蘭</ion-option>
+          -->
         </ion-select>
       </ion-item>
       <ion-item>
         <ion-label>店鋪名稱</ion-label>
-        <ion-select [(ngModel)]="name">
-          <ion-option>北車店</ion-option>
-          <ion-option>新店店</ion-option>
+        <ion-select [(ngModel)]="name" id="name">
+          <ion-option>大直店</ion-option>
+          <ion-option>民生店</ion-option>
+          <ion-option>和平店</ion-option>
+          <ion-option>龍江店</ion-option>
+          <ion-option>主義店</ion-option>
         </ion-select>
       </ion-item>
+      
+
       <button ion-button (click)="doConfirm()" >確認</button>
       <!--<button ion-button  (click)="goNext()">確認</button>-->
     </ion-card-content>
