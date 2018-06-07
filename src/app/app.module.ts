@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -8,6 +9,7 @@ import { HttpModule } from '@angular/Http';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { KeyboardPage } from '../pages/keyboard/keyboard';
+import { ApiProvider } from '../providers/api/api';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,8 @@ import { KeyboardPage } from '../pages/keyboard/keyboard';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    ApiProvider
   ]
 })
 export class AppModule {}
