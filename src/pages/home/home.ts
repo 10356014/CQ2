@@ -86,9 +86,10 @@ export class HomePage {
         
       }                          
     }
-    getSelectCity(citySelect) {
-      console.log(1);
-    }
+    selectChange(citySelect) {  
+      var city=this.city;
+      console.log("OK"+city);  
+    }  
 
 
     //--------------------------------------------
