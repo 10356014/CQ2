@@ -4,6 +4,7 @@ import { Http } from '@angular/Http';
 import { RequestOptions, Headers } from '@angular/Http';
 import { AlertController } from 'ionic-angular';
 
+
 /**
  * Generated class for the KeyboardPage page.
  *
@@ -30,6 +31,8 @@ export class KeyboardPage {
     //---------
     constructor(public navCtrl: NavController, public navParams: NavParams, public http:Http, public alertCtrl: AlertController) {
         this.sid = this.navParams.get('sid'); //接收上一頁的ID
+        
+       
         //--第一個方法POST Rid--//
         let url='https://cq2.robelf.com/api.php?api=Extra_getRid';
         let headers = new Headers({ 'Content-Type': 'application/json' });
@@ -41,26 +44,28 @@ export class KeyboardPage {
             (data) => {
                 this.rid=data.json()['data'];
                 console.log(this.rid);
-                }, 
-                error => {this.showAlert();
+            }, 
+            (err) => {this.showAlert();
             }
         );
+        /*
         //--第二個方法POST Rid--//
-        /*let params = new URLSearchParams();
+        let params = new URLSearchParams();
         //params.append('sid', '1');
-        params.append('sid', this.sid);
+        params.append('sid',this.sid);
         this.http.post('https://cq2.robelf.com/api.php?api=Extra_getRid', params)
           .subscribe(data => {
               this.rid=data.json()['data'];
               console.log(this.rid);
           }, error => {
               this.showAlert();
-          });*/
+          });
+          */
     }
 
     ionViewDidLoad() {
         console.log('KeyboardPage');
-        console.log(this.sid);
+        console.log(this.rid);
     }
 
     //..........................................

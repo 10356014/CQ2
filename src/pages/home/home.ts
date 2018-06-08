@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 import { KeyboardPage } from '../keyboard/keyboard';
 import { Http } from '@angular/Http';
@@ -44,6 +44,7 @@ export class HomePage {
             (data) => {
               this.items=data.json()['data'];
               this.getData(this.items);
+              //console.log(this.items);
           },
             (err) => {this.showAlert();
             }
@@ -51,7 +52,8 @@ export class HomePage {
 
   }
     
-	getData(myString){		
+	getData(myString){	
+      this.result = new Set(); //新增集合	
       for(var i=0; i< myString.length; i++){
 		    //取出若干欄位資料
         var id= myString[i].id;
@@ -63,24 +65,24 @@ export class HomePage {
         this.myAddr.push(addr.substring(0,3));//擷取地址前3位放入陣列
         this.myStore_name.push(store_name);
 
-		    this.result = new Set(); //新增集合
+		    
         //如果集合內沒有相同的值，就放入reault中
-        if (this.result.has(addr.substring(0,3)) !=  true){
+        if (this.result.has(addr.substring(0,3)) != true){
            this.result.add(addr.substring(0,3));
         }
-        console.log(this.result); 
-      }                          
+        
+      }                  
   }
 
   selectCity(citySelect) {  
     console.log(citySelect);  
     for(var i=0; i< this.myAddr.length; i++){
-      if (this.myAddr[i]=citySelect){
+      if (this.myAddr[i]==citySelect){
 
-        var cityStore= this.myStore_name[i];
-        this.myCityStore.push(cityStore);
-        var cityStoreId= this.myId[i];
-        this.myCityStoreId.push(cityStoreId);
+      var cityStore= this.myStore_name[i];
+      this.myCityStore.push(cityStore);
+      var cityStoreId= this.myId[i];
+      this.myCityStoreId.push(cityStoreId);
       }
     }
   }  
