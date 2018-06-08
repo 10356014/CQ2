@@ -13,14 +13,8 @@
         <ion-item> 
           
           <ion-label>店鋪縣市</ion-label>
-<<<<<<< HEAD
-          <ion-select id="citySelect" (ionChange)="selectChange(citySelect)">
-            <ion-option *ngFor="let item of result" value= {{item}} > {{item}} </ion-option>   
-            
-=======
           <ion-select [(ngModel)]="citySelect" (ionChange)="selectCity($event)" >
             <ion-option *ngFor="let item of result" value= {{item}} > {{item}} </ion-option> 
->>>>>>> master
           </ion-select> 
                             
         </ion-item>
@@ -29,17 +23,8 @@
         
         <ion-item>
           <ion-label>店鋪名稱</ion-label>
-<<<<<<< HEAD
-          <ion-select >
-            <ion-option>大直店</ion-option>
-            <ion-option>民生店</ion-option>
-            <ion-option>和平店</ion-option>
-            <ion-option>龍江店</ion-option>
-            <ion-option>主義店</ion-option>
-=======
           <ion-select [(ngModel)]="storeSelect" (ionChange)="selectStore($event)" >
             <ion-option *ngFor="let name of myCityStore" value= {{name}} > {{name}} </ion-option> 
->>>>>>> master
           </ion-select>
         </ion-item>
         
