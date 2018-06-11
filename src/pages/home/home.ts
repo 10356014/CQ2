@@ -16,11 +16,11 @@ export class HomePage {
     store_name:string;
     addr:string;
     sid:number;
-    name:any;
-    city:any;
+    rid:any;
+    //--------
+ 
     items:any;
     item:any;
-    test:object[];
     myString:string[];
     myArray:string[];
     myId=[];
@@ -34,6 +34,7 @@ export class HomePage {
     citySelect:any;
     selectId:any;
     pushId:any;
+    rid_result:any;
 
   //----------------------------------
 	constructor(public navCtrl: NavController, public http:Http, public alertCtrl: AlertController) {
@@ -54,6 +55,7 @@ export class HomePage {
     
 	getData(myString){	
       this.result = new Set(); //新增集合	
+      
       for(var i=0; i< myString.length; i++){
 		    //取出若干欄位資料
         var id= myString[i].id;
@@ -76,27 +78,31 @@ export class HomePage {
 
   selectCity(citySelect) {  
     console.log(citySelect);  
+    this.myCityStore=[];
+    this.myCityStoreId=[];
+    
     for(var i=0; i< this.myAddr.length; i++){
       if (this.myAddr[i]==citySelect){
-
       var cityStore= this.myStore_name[i];
       this.myCityStore.push(cityStore);
       var cityStoreId= this.myId[i];
       this.myCityStoreId.push(cityStoreId);
+      
       }
     }
   }  
 
   selectStore(storeSelect) {  
     console.log(storeSelect);  
-    
     for(var i=0; i< this.myStore_name.length; i++){
-      if (this.myStore_name[i]=storeSelect){
+      if (this.myStore_name[i]==storeSelect){
         var selectId=this.myId[i];
       }
     }
     this.pushId = selectId;
     console.log(this.pushId);
+
+
   }  
 
  //----------------------------------------------------------------
@@ -138,15 +144,44 @@ export class HomePage {
           {
             text: '確認',
             handler: () => {
-              let data = this.selectId
-              this.navCtrl.push(KeyboardPage, {
-                sid:this.pushId
-              });
+            //--------------
+            //把sid轉換成rid
+            //--------------
+            
+            let params = new FormData();
+            params.append('sid', this.pushId);
+            //console.log(this.pushId);
+            this.http.post('https://cq2.robelf.com/api.php?api=Extra_getRid',params)
+            .subscribe(data => {
+                this.rid_result=data.json()['result'];
+                this.rid=data.json()['data'];
+                //console.log(this.rid_result);
+                if(this.rid_result!=0){
+                  let alert = this.alertCtrl.create({
+                  title: '通知',
+                  subTitle: '店鋪沒有機器人',
+                  buttons: ['返回']
+                  });
+                alert.present();
+                }
+                else{
+                  
+                  this.navCtrl.push(KeyboardPage, {rid:this.rid});
+                  
+                }
+
+                }, error => {
+                  this.showAlert();
+            });
+
+            
             }
           }
         ]
       });
-      confirm.present()
-    }
+       confirm.present()
+    }     
+   
   }
+ 
 }

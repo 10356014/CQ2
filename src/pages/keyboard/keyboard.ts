@@ -27,63 +27,59 @@ export class KeyboardPage {
     sid:any;
     rid:any;
     //---------
-    callingNum:number; //當前叫號
+    LastData:any;
+    LastNum:number; //當前叫號
     //---------
-    constructor(public navCtrl: NavController, public navParams: NavParams, public http:Http, public alertCtrl: AlertController) {
-        this.sid = this.navParams.get('sid'); //接收上一頁的ID
-        
-       
-        //--第一個方法POST Rid--//
-        let url='https://cq2.robelf.com/api.php?api=Extra_getRid';
-        let headers = new Headers({ 'Content-Type': 'application/json' });
-        let options = new RequestOptions({ headers: headers });
-        let data={'sid': this.sid};
+    data:any;
+        constructor(public navCtrl: NavController, public navParams: NavParams, public http:Http, public alertCtrl: AlertController) {
+            
+            this.rid = this.navParams.get('rid'); //接收上一頁的ID
+            console.log(this.rid);
+            
 
-        this.http.post(url, data, options)			
-        .subscribe(
-            (data) => {
-                this.rid=data.json()['data'];
-                console.log(this.rid);
-            }, 
-            (err) => {this.showAlert();
-            }
-        );
-        /*
-        //--第二個方法POST Rid--//
-        let params = new URLSearchParams();
-        //params.append('sid', '1');
-        params.append('sid',this.sid);
-        this.http.post('https://cq2.robelf.com/api.php?api=Extra_getRid', params)
-          .subscribe(data => {
-              this.rid=data.json()['data'];
-              console.log(this.rid);
-          }, error => {
-              this.showAlert();
-          });
-          */
-    }
-
+}
+    /*
     ionViewDidLoad() {
         console.log('KeyboardPage');
         console.log(this.rid);
     }
-
+    */
     //..........................................
     //--取得當前叫號--//
-    getCallingNum(){
-        let url='https://cq2.robelf.com/api.php?api=Extra_callingNumber';
+    getLastNum(rid){
+        let url='https://cq2.robelf.com/api.php?api=Extra_getLastNumber ';
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
         let data={'rid': this.rid };
+        console.log(this.rid);
 
         this.http.post(url, data, options)			
-        .subscribe(
-            (data) => {
-                this.callingNum=data.json()['data'];
-                console.log(this.callingNum);
-            }, error => {
-                    this.showAlert();
-          });
+            .subscribe(
+                (data) => {
+                    this.LastData=data.json()['data'];
+                    console.log(this.LastNum);
+
+
+                }, error => {
+                        this.showAlert();
+        });
+        
+
+       for(var i=0; i< this.LastData.length; i++){
+                //取出若干欄位資料
+            var rid=this.LastData[i].rid;				
+            var num_plate=this.LastData[i].num_plate;
+            var time= this.LastData[i].time;
+
+            //將存有資料的物件加入陣列
+            this.lastRid.push(rid);
+            this.lastNum_plate.push(num_plate);//擷取地址前3位放入陣列
+            this.lastTime.push(time);
+
+            this.time=Max(time.getTime(),time);
+        }
+
+        
     }
     //..........................................
     showAlert() {
