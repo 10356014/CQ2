@@ -12,15 +12,24 @@
     max-width:100%;
     background:linear-gradient(10deg,#4E5EFC,#4EE7FC);
 }
+///----------------------
+.number .grid{
+    margin: auto;
+    padding: 0px;
+
+}
+.number .col{
+    text-align: center;
+    margin:auto;
+    font-size: 35px;
+}
 
 .number{ 
     margin: 7px;
     margin-top: 70px;
     margin-bottom: 20px;
-   
     font-family: 'Noto Sans TC', sans-serif;
-    font-weight:200;
-    font-size: 50px;
+    font-weight:100;
     font-weight: bold;
     background: rgba(232,230,230,0.4px);
     padding:10px;

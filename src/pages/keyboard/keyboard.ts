@@ -17,55 +17,48 @@ import { AlertController } from 'ionic-angular';
   selector: 'page-keyboard',
   templateUrl: 'keyboard.html',
 })
+
+
 export class KeyboardPage {
     //--------
-    num_plate:any;
+    
     returnCode:any;
     manualInput:any;
     //---------
     alert:any;
-    sid:any;
+    sid:number;
     rid:any;
     //---------
-    LastData:any;
+    LastData:any[];//getLastNum帶回來的資料
     LastNum:number; //當前叫號
+    lastRid:number[];
+    lastNum_plate:number[];
+    lastTime: Date[];
     //---------
     data:any;
-        constructor(public navCtrl: NavController, public navParams: NavParams, public http:Http, public alertCtrl: AlertController) {
-            
-            this.rid = this.navParams.get('rid'); //接收上一頁的ID
-            console.log(this.rid);
-            
+    vip:any;//VIP的回傳
+    LastNumber:any;
+    LastNumber_result:any;
+    num_plate:any;
 
-}
-    /*
-    ionViewDidLoad() {
+
+
+    
+    constructor(public navCtrl: NavController, public navParams: NavParams, public http:Http, public alertCtrl: AlertController) {
+        this.rid = this.navParams.get('rid'); //接收上一頁的ID
+        console.log(this.rid);
+        this.getLastNumber();
+
+        
+    }
+
+    /*ionViewDidLoad() {
         console.log('KeyboardPage');
         console.log(this.rid);
-    }
-    */
+    }*/
+
     //..........................................
-    //--取得當前叫號--//
-    getLastNum(rid){
-        let url='https://cq2.robelf.com/api.php?api=Extra_getLastNumber ';
-        let headers = new Headers({ 'Content-Type': 'application/json' });
-        let options = new RequestOptions({ headers: headers });
-        let data={'rid': this.rid };
-        console.log(this.rid);
-
-        this.http.post(url, data, options)			
-            .subscribe(
-                (data) => {
-                    this.LastData=data.json()['data'];
-                    console.log(this.LastNum);
-
-
-                }, error => {
-                        this.showAlert();
-        });
-        
-
-       for(var i=0; i< this.LastData.length; i++){
+       /*for(var i=0; i< this.LastData.length; i++){
                 //取出若干欄位資料
             var rid=this.LastData[i].rid;				
             var num_plate=this.LastData[i].num_plate;
@@ -73,50 +66,89 @@ export class KeyboardPage {
 
             //將存有資料的物件加入陣列
             this.lastRid.push(rid);
-            this.lastNum_plate.push(num_plate);//擷取地址前3位放入陣列
+            this.lastNum_plate.push(num_plate);
             this.lastTime.push(time);
 
-            this.time=Max(time.getTime(),time);
-        }
+            time=Math.max(time.getTime(),time);
+            return time;
+            console.log(time);
+        }*/
 
         
-    }
+    
     //..........................................
     showAlert() {
-        let alert = this.alertCtrl.create({
-            title: '連線失敗!',
-            subTitle: '請確定網路狀態, 或是主機是否提供服務中.',
-            buttons: ['OK']
-        });
-        alert.present();
+        let params = new FormData();
+        params.append('rid', this.rid);
+        this.http.post('https://cq2.robelf.com/api.php?api=Extra_getLastNumber',params)
+            .subscribe(data => {
+                this.LastData=data.json()['data'];
+                console.log(this.LastData);
+            }, error => {
+                this.showAlert();
+            });
+    }
+
+    //--重刷--//
+    doRefresh(refresher) {
+        this.getLastNumber();
+        console.log('Begin async operation', refresher);
+    
+        setTimeout(() => {
+          console.log('Async operation has ended');
+          refresher.complete();
+        }, 1000);
     }
     
+    //--當前號碼--//
+    getLastNumber(){
+        //------------------------------
+        let params = new FormData();
+        params.append('rid', this.rid);
+        this.http.post('https://cq2.robelf.com/api.php?api=Extra_getLastNumber',params)
+            .subscribe(data => {
+                this.LastNumber_result=data.json()['result'];
+                this.data=data.json()['data'];
+                this.num_plate= this.data.num_plate;
+
+                console.log("----------------");
+                console.log(this.LastNumber_result);
+                console.log(this.num_plate);
+
+            }, error => {
+                this.showAlert();
+            });
+    }
 
     //--預約客叫號--//
-    postVIP(){
-        let url='https://cq2.robelf.com/api.php?api=Extra_addNumPlate';
-        let headers = new Headers({ 'Content-Type': 'application/json' });
-        let options = new RequestOptions({ headers: headers });
-        let data={'num_plate': -1 , 'rid':this.rid};
+    callVIP(){
+        let params = new FormData();
+        params.append('num_plate', "-1");
+        params.append('rid', this.rid);
+        this.http.post('https://cq2.robelf.com/api.php?api=Extra_addNumPlate',params)
+            .subscribe(data => {
+                this.vip=data.json()['data'];
+                console.log(this.vip);
 
-        this.http.post(url, data, options)			
-        .subscribe(
-            (data) => {
-                    let ret=data.json()['result'];     
-                    console.log(ret);
-                    if(ret==0){         
-                        this.showSuccess();
-                    }else{                   
-                        this.showFail();
-                        return;
+                if (this.vip==true){
+                    let alert = this.alertCtrl.create({
+                        title: '提示',
+                        subTitle: '預約客呼叫完成',
+                        buttons: ['確定']
+                    });
+                    alert.present();
                     }
-                },
-            (err) => {this.showAlert();}
-        );	
+                else{ 
+                  this.navCtrl.push(KeyboardPage, {rid:this.rid});
+                }
+
+            }, error => {
+                this.showAlert();
+            });
     }
     //-------------------------------------------------------------------------------
     //按下加一
-    postCus(callingNum){
+    /*postCus(callingNum){
         this.getCallingNum();
         let url='https://cq2.robelf.com/api.php?api=Extra_addNumPlate';
         let headers = new Headers({ 'Content-Type': 'application/json' });
@@ -140,7 +172,7 @@ export class KeyboardPage {
                 },
             (err) => {this.showAlert();}
         );	
-    }
+    }*/
     //..........................................
     showSuccess() {
         let alert = this.alertCtrl.create({
@@ -178,25 +210,12 @@ export class KeyboardPage {
     /*loadData() {
         if(this.manualInput>1 && this.manualInput<999){
             this.postCus(this.manualInput);
-            this.manualInput="";
-        }else if (this.manualInput<1 || this.manualInput>999 || this.manualInput=='') {
-            let confirm = this.alertCtrl.create({
-                title: '提示',
-                message: '請輸入1~999',
-                buttons: [
-                {
-                    text: '返回',
-                    handler: () => {
-                    console.log('Disagree clicked');
-                    }
-
-                }
-                ] 
-            });
-            this.manualInput="";
+            this.manualInpu
+            
             confirm.present()
         }
         
     }*/
+    
 
 }

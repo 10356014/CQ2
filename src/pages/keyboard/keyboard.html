@@ -11,13 +11,21 @@
     
 
   <ion-content>
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content>刷新</ion-refresher-content>
+    </ion-refresher>
     <div class="number">
-        當前號碼:01
+        <ion-grid>
+            <ion-row>
+                <ion-col>當前號碼:{{num_plate}}</ion-col>
+            </ion-row>
+        </ion-grid>
     </div>
+
     <div class="common">
         <ion-grid>
           <ion-row>
-            <ion-col ><button ion-button (click)="postVIP()">預約客</button></ion-col>
+            <ion-col ><button ion-button (click)="callVIP()">預約客</button></ion-col>
             <ion-col ><button ion-button (click)="postCus()">+1</button></ion-col>
           </ion-row>
         </ion-grid>
