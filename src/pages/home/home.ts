@@ -50,7 +50,6 @@ export class HomePage {
             (err) => {this.showAlert();
             }
       );
-
   }
     
 	getData(myString){	
