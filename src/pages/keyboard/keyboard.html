@@ -1,16 +1,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+        
 
-    <ion-header>
-        <ion-navbar>
-            <ion-title>
-                CQ2 叫號系統
-            </ion-title>
-        </ion-navbar>
-    </ion-header>
 
     
 
   <ion-content>
+    <ion-navbar>
+        <ion-title>CQ2 叫號系統</ion-title>
+    </ion-navbar>
+    
+
     <ion-refresher (ionRefresh)="doRefresh($event)">
         <ion-refresher-content>刷新</ion-refresher-content>
     </ion-refresher>
@@ -33,14 +34,11 @@
 
     
     <div class ="keyboard">
-    <h2>輸入號碼</h2>
+        <h2>輸入號碼</h2>
         <div class="inputNum">
-            <div class="input">
-                <ion-input type="number"[(ngModel)]="manualInput" max=999 min=1></ion-input>
-            </div>
-            <div class="padding">
-                <button class="button button-block button-positive" (click)="loadData()">確認</button>
-            </div>
+            <ion-input type="number"[(ngModel)]="manualInput" max=999 min=1></ion-input>
+            <button class="button button-block button-positive" (click)="loadData()">確認</button>
+            
         </div>
     </div>
   </ion-content>

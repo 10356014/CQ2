@@ -1,10 +1,16 @@
 @import url(//fonts.googleapis.com/earlyaccess/notosanstc.css);
 .toolbar-background { background-color:rgba(255, 0, 0, 0)   !important; }
 
- .header .button{
-    float: left;
-    margin: 0px;
+.title{
+    padding: 15px;
+    text-align: center;
+    font-family: 'Noto Sans TC', sans-serif;
+    color: #000000;
+    font-weight:200;
+    height:60px;
+    
 }
+
 /*---------------------------*/
 /* 定義內容                   */
 /*---------------------------*/
@@ -26,7 +32,7 @@
 
 .number{ 
     margin: 7px;
-    margin-top: 70px;
+    margin-top: 30px;
     margin-bottom: 20px;
     font-family: 'Noto Sans TC', sans-serif;
     font-weight:100;
@@ -67,23 +73,24 @@
 .keyboard{
     background: rgba(232,230,230,0.2px);
     margin:8px;
-    height:250px;
+    height:240px;
     padding:10px;
     border-radius: 20px;
     font-family: 'Noto Sans TC', sans-serif;
     font-weight:500;
 }
-.padding {
-    background: #FFFEFF;
-}
 .inputNum .input{
     height: 50px;
+    width: 90%;
+    margin: auto;
     font-size: 28px;
-    background: #fff8ed80;    
+    background: #fff8edbe;    
+    border: none;
+    border-radius: 10px;
 }
 .inputNum .button{
     height:50px;
-    background: rgba(68,114,196,0.9);
+    background: rgba(53, 109, 206, 0.9);
     color: #FFFEFF;
     margin:auto;
     margin-bottom: 20px;
