@@ -1,97 +1,45 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Http } from '@angular/Http';
-import { RequestOptions, Headers } from '@angular/Http';
 import { AlertController } from 'ionic-angular';
-
-
-/**
- * Generated class for the KeyboardPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { OnInit,ChangeDetectionStrategy,ChangeDetectorRef,OnDestroy} from  "@angular/core";
+import { Insomnia } from '@ionic-native/insomnia';
 
 @IonicPage()
 @Component({
   selector: 'page-keyboard',
   templateUrl: 'keyboard.html',
 })
-
-
 export class KeyboardPage {
-    //--------
-    
-    returnCode:any;
-    manualInput:any;
-    //---------
-    alert:any;
-    sid:number;
-    rid:any;
-    //---------
-    LastData:any[];//getLastNum帶回來的資料
-    LastNum:number; //當前叫號
-    lastRid:number[];
-    lastNum_plate:number[];
-    lastTime: Date[];
-    //---------
-    data:any;
-    vip:any;//VIP的回傳
-    LastNumber:any;
-    LastNumber_result:any;
     num_plate:any;
-
-
-
+    manualInput:any;
+    rid:any;
+    data:any;
+    vip:any;
+    cus:any;
+    input:any;
+    private timer;
     
-    constructor(public navCtrl: NavController, public navParams: NavParams, public http:Http, public alertCtrl: AlertController) {
+    constructor(public navCtrl: NavController, public navParams: NavParams, public http:Http, public alertCtrl: AlertController, private ref : ChangeDetectorRef, public insomnia: Insomnia) {
         this.rid = this.navParams.get('rid'); //接收上一頁的ID
-        console.log(this.rid);
-        this.getLastNumber();
+        this.getLastNum();
 
-        
+        setInterval(() => {
+            this.ref.detectChanges();
+        }, 5000);
+
+        this.insomnia.keepAwake()
+        .then(
+            () => console.log('success'),
+            () => console.log('error')
+        );
     }
 
-    /*ionViewDidLoad() {
-        console.log('KeyboardPage');
-        console.log(this.rid);
-    }*/
-
-    //..........................................
-       /*for(var i=0; i< this.LastData.length; i++){
-                //取出若干欄位資料
-            var rid=this.LastData[i].rid;				
-            var num_plate=this.LastData[i].num_plate;
-            var time= this.LastData[i].time;
-
-            //將存有資料的物件加入陣列
-            this.lastRid.push(rid);
-            this.lastNum_plate.push(num_plate);
-            this.lastTime.push(time);
-
-            time=Math.max(time.getTime(),time);
-            return time;
-            console.log(time);
-        }*/
-
-        
     
-    //..........................................
-    showAlert() {
-        let params = new FormData();
-        params.append('rid', this.rid);
-        this.http.post('https://cq2.robelf.com/api.php?api=Extra_getLastNumber',params)
-            .subscribe(data => {
-                this.LastData=data.json()['data'];
-                console.log(this.LastData);
-            }, error => {
-                this.showAlert();
-            });
-    }
 
-    //--重刷--//
+//刷新-----------------------------------------------------------------------------------
     doRefresh(refresher) {
-        this.getLastNumber();
+        this.getLastNum();
         console.log('Begin async operation', refresher);
     
         setTimeout(() => {
@@ -99,20 +47,15 @@ export class KeyboardPage {
           refresher.complete();
         }, 1000);
     }
-    
-    //--當前號碼--//
-    getLastNumber(){
-        //------------------------------
+
+//當前叫號--------------------------------------------------------------------------------
+    getLastNum(){
         let params = new FormData();
         params.append('rid', this.rid);
         this.http.post('https://cq2.robelf.com/api.php?api=Extra_getLastNumber',params)
             .subscribe(data => {
-                this.LastNumber_result=data.json()['result'];
                 this.data=data.json()['data'];
                 this.num_plate= this.data.num_plate;
-
-                console.log("----------------");
-                console.log(this.LastNumber_result);
                 console.log(this.num_plate);
 
             }, error => {
@@ -120,102 +63,122 @@ export class KeyboardPage {
             });
     }
 
-    //--預約客叫號--//
+//預約客叫號-----------------------------------------------------------------------------
     callVIP(){
         let params = new FormData();
-        params.append('num_plate', "-1");
+        params.append('num_plate', '-1');
         params.append('rid', this.rid);
         this.http.post('https://cq2.robelf.com/api.php?api=Extra_addNumPlate',params)
             .subscribe(data => {
                 this.vip=data.json()['data'];
-                console.log(this.vip);
-
-                if (this.vip==true){
-                    let alert = this.alertCtrl.create({
-                        title: '提示',
-                        subTitle: '預約客呼叫完成',
-                        buttons: ['確定']
-                    });
-                    alert.present();
-                    }
-                else{ 
-                  this.navCtrl.push(KeyboardPage, {rid:this.rid});
-                }
-
+                this.getLastNum();
+                let alert = this.alertCtrl.create({
+                    title: '提示',
+                    subTitle: '預約客呼叫成功',
+                    buttons: ['確定']
+                });
+                alert.present();
             }, error => {
                 this.showAlert();
             });
     }
-    //-------------------------------------------------------------------------------
-    //按下加一
-    /*postCus(callingNum){
-        this.getCallingNum();
-        let url='https://cq2.robelf.com/api.php?api=Extra_addNumPlate';
-        let headers = new Headers({ 'Content-Type': 'application/json' });
-        let options = new RequestOptions({ headers: headers });
-        let data={'num_plate':this.callingNum + 1, 'rid':this.rid};
 
-        this.http.post(url, data, options)			
-        .subscribe(
-                (data) => {
-                    let result =data.json()['result'];     //接收主機回傳代碼
-                    console.log(result);
-                    if(result.code==0){         //如果成功註冊
-                        this.tellSuccess();
-                        this.num_plate='';
-                        this.rid='';
-                        return;
-                    }else{                   //如果註冊失敗 
-                        this.tellFail();
-                        return;
+ //一般客叫號-----------------------------------------------------------------------------
+    callCus(){
+        this.getLastNum();
+        if(this.num_plate == "999"){
+            var callNum = "1";
+        }else{
+            var callNum = String(Number(this.num_plate)+1); 
+        }
+        let params = new FormData();
+        params.append('num_plate', callNum);
+        params.append('rid', this.rid);
+        this.http.post('https://cq2.robelf.com/api.php?api=Extra_addNumPlate',params)
+            .subscribe(data => {
+                this.cus=data.json();
+                console.log(this.cus);
+                if(this.input == 0){
+                    this.getLastNum();
+                    let alert = this.alertCtrl.create({
+                        title: '提示',
+                        subTitle: '叫號成功',
+                        buttons: ['確定']
+                    });
+                    alert.present();
+                }else{
+                    let alert = this.alertCtrl.create({
+                        title: '提示',
+                        subTitle: '此號碼已在叫號列表中',
+                        buttons: ['確定']
+                    });
+                    alert.present();
+                }}, error => {
+                    this.showAlert();
+                });
+    }
+    
+//手動輸入叫號-----------------------------------------------------------------------------
+callInput(manualInput){
+    let params = new FormData();
+    params.append('num_plate', this.manualInput);
+    params.append('rid', this.rid);
+    this.http.post('https://cq2.robelf.com/api.php?api=Extra_addNumPlate',params)
+        .subscribe(data => {
+            this.input=data.json()['result'];
+            console.log(this.input);
+            if(this.input == 0){
+                this.getLastNum();
+                let alert = this.alertCtrl.create({
+                    title: '提示',
+                    subTitle: '叫號成功',
+                    buttons: ['確定']
+                });
+                alert.present();
+            }else{
+                let alert = this.alertCtrl.create({
+                    title: '提示',
+                    subTitle: '此號碼已在叫號列表中',
+                    buttons: ['確定']
+                });
+                alert.present();
+            }}, error => {
+                this.showAlert();
+            });
+}
+
+//連線失敗訊息---------------------------------------------------------------------------
+    showAlert() {
+        let alert = this.alertCtrl.create({
+            title: '連線失敗!',
+            subTitle: '請確定網路狀態, 或是主機是否提供服務中.',
+            buttons: ['OK']
+        });
+        alert.present();
+    }
+    
+//手動輸入-------------------------------------------------------------------------------
+    loadData() {
+        if(this.manualInput>0 && this.manualInput<1000){
+            this.callInput(this.manualInput);
+            this.manualInput="";
+        }else if (this.manualInput<1 || this.manualInput>999 || this.manualInput=='') {
+            let confirm = this.alertCtrl.create({
+                title: '提示',
+                message: '請輸入1~999',
+                buttons: [
+                    {
+                        text: '返回',
+                        handler: () => {
+                        console.log('Disagree clicked');
+                        }
                     }
-                },
-            (err) => {this.showAlert();}
-        );	
-    }*/
-    //..........................................
-    showSuccess() {
-        let alert = this.alertCtrl.create({
-            title: '預約客呼叫成功!',
-            buttons: ['OK']
-        });
-        alert.present();
-    }	
-    //..........................................
-    showFail() {
-        let alert = this.alertCtrl.create({
-            title: '預約客呼叫失敗!',
-            buttons: ['OK']
-        });
-        alert.present();
-    }
-    //..........................................
-    tellSuccess() {
-      let alert = this.alertCtrl.create({
-          title: '叫號成功!',
-          buttons: ['OK']
-      });
-      alert.present();
-    }	
-    //..........................................
-    tellFail() {
-      let alert = this.alertCtrl.create({
-          title: '叫號失敗!',
-          buttons: ['OK']
-      });
-      alert.present();
-    }
-    //..........................................
-    //..........................................
-    /*loadData() {
-        if(this.manualInput>1 && this.manualInput<999){
-            this.postCus(this.manualInput);
-            this.manualInpu
-            
+                ] 
+            });
+            this.manualInput="";
             confirm.present()
         }
         
-    }*/
-    
+    }
 
 }
