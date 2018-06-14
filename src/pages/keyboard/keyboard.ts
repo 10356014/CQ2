@@ -19,33 +19,37 @@ export class KeyboardPage {
     cus:any;
     input:any;
     private timer;
+    interval:any;
+    duration:any;
     
     constructor(public navCtrl: NavController, public navParams: NavParams, public http:Http, public alertCtrl: AlertController, private ref : ChangeDetectorRef, public insomnia: Insomnia) {
         this.rid = this.navParams.get('rid'); //接收上一頁的ID
         this.getLastNum();
-
-        setInterval(() => {
-            this.ref.detectChanges();
-        }, 5000);
 
         this.insomnia.keepAwake()
         .then(
             () => console.log('success'),
             () => console.log('error')
         );
-    }
 
-    
+        var dur = 1;
+        this.interval = setInterval(()=>{
+            dur = dur +1;
+            this.duration = dur;
+            this.getLastNum();
+        }, 1500);
+    }
 
 //刷新-----------------------------------------------------------------------------------
     doRefresh(refresher) {
         this.getLastNum();
+        this.manualInput="";
         console.log('Begin async operation', refresher);
     
         setTimeout(() => {
           console.log('Async operation has ended');
           refresher.complete();
-        }, 1000);
+        }, 1500);
     }
 
 //當前叫號--------------------------------------------------------------------------------
@@ -71,7 +75,6 @@ export class KeyboardPage {
         this.http.post('https://cq2.robelf.com/api.php?api=Extra_addNumPlate',params)
             .subscribe(data => {
                 this.vip=data.json()['data'];
-                this.getLastNum();
                 let alert = this.alertCtrl.create({
                     title: '提示',
                     subTitle: '預約客呼叫成功',
@@ -83,9 +86,8 @@ export class KeyboardPage {
             });
     }
 
- //一般客叫號-----------------------------------------------------------------------------
+//一般客叫號-----------------------------------------------------------------------------
     callCus(){
-        this.getLastNum();
         if(this.num_plate == "999"){
             var callNum = "1";
         }else{
@@ -96,10 +98,9 @@ export class KeyboardPage {
         params.append('rid', this.rid);
         this.http.post('https://cq2.robelf.com/api.php?api=Extra_addNumPlate',params)
             .subscribe(data => {
-                this.cus=data.json();
+                this.cus=data.json()['result'];
                 console.log(this.cus);
-                if(this.input == 0){
-                    this.getLastNum();
+                if(this.cus == 0){
                     let alert = this.alertCtrl.create({
                         title: '提示',
                         subTitle: '叫號成功',
@@ -128,13 +129,13 @@ callInput(manualInput){
             this.input=data.json()['result'];
             console.log(this.input);
             if(this.input == 0){
-                this.getLastNum();
                 let alert = this.alertCtrl.create({
                     title: '提示',
                     subTitle: '叫號成功',
                     buttons: ['確定']
                 });
                 alert.present();
+                this.getLastNum();
             }else{
                 let alert = this.alertCtrl.create({
                     title: '提示',

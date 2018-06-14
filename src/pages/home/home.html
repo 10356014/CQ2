@@ -5,37 +5,27 @@
   </div>
  
   <ion-card>
-    <ion-card-header>
-      登入
-    </ion-card-header>
+      <ion-card-header>
+        登入
+      </ion-card-header>
     <ion-card-content>
-      
-        <ion-item> 
-          <ion-label>店鋪縣市</ion-label>
+        
+      <ion-item> 
+        <ion-label>店鋪縣市</ion-label>
           <ion-select [(ngModel)]="citySelect" (ionChange)="selectCity($event)" >
             <ion-option *ngFor="let item of result" value= {{item}} > {{item}} </ion-option> 
           </ion-select>     
-        </ion-item>
-       
-        
-        
-        <ion-item>
-          <ion-label>店鋪名稱</ion-label>
+      </ion-item>
+            
+      <ion-item>
+        <ion-label>店鋪名稱</ion-label>
           <ion-select [(ngModel)]="storeSelect" (ionChange)="selectStore($event)" >
             <ion-option *ngFor="let name of myCityStore" value= {{name}} > {{name}} </ion-option> 
           </ion-select>
-        </ion-item>
-        
-      <button ion-button (click)="doConfirm()" >確認</button>
-     
-     <!--
-    <ion-list>
-      <ion-item *ngFor="let item of myAddr">
-        <h2>{{item}}</h2>	
       </ion-item>
-    </ion-list>
-    -->	
-      
+            
+      <button ion-button (click)="doConfirm()" >確認</button>
+        
     </ion-card-content>
   </ion-card>
 </ion-content>
