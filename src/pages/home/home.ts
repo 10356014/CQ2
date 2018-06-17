@@ -1,15 +1,18 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams} from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 import { KeyboardPage } from '../keyboard/keyboard';
 import { Http } from '@angular/Http';
 import { URLSearchParams } from '@angular/http';
 import 'rxjs/add/operator/map';
 
+import { Storage } from '@ionic/storage';
+
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
+
 export class HomePage {
 
   result:any; 
@@ -33,8 +36,25 @@ export class HomePage {
   myStore_name=[];
   myCityStore=[];
   myCityStoreId=[];
+  myRid:number;
 
-	constructor(public navCtrl: NavController, public http:Http, public alertCtrl: AlertController) {
+	constructor(public navCtrl: NavController, public http:Http, public alertCtrl: AlertController, public storage: Storage) {
+      /*
+      if (this.storage.get('rid')!=null){
+        console.log(this.storage.get('rid'));
+        //this.navCtrl.push(KeyboardPage, {rid:this.storage.get('rid')});
+        console.log('rid is'+this.rid);
+      }
+      */
+      this.storage.get('rid').then((val) => {
+        this.myRid=Number(val);
+        if ((this.myRid) !==null){
+          this.navCtrl.push(KeyboardPage, {myRid:this.myRid});
+        }
+      });
+
+      
+
     	let params: URLSearchParams = new URLSearchParams();
 		  this.http.post('https://cq2.robelf.com/api.php?api=Extra_getStoreList', {search: params})			
           .subscribe(
@@ -45,6 +65,8 @@ export class HomePage {
               this.showAlert();
             }
           );
+
+
    }
 
 //資料陣列------------------------------------------------------------
@@ -140,6 +162,7 @@ export class HomePage {
             .subscribe(data => {
                 this.rid_result=data.json()['result'];
                 this.rid=data.json()['data'];
+
                 if(this.rid_result!=0){
                   let alert = this.alertCtrl.create({
                   title: '通知',
@@ -148,7 +171,13 @@ export class HomePage {
                   });
                 alert.present();
                 }else{
-                  this.navCtrl.push(KeyboardPage, {rid:this.rid});
+                  //存下rid
+                  
+                  this.storage.set('rid',this.rid);
+                  this.storage.get('rid').then((val) => {
+                    this.myRid=Number(val);
+                    this.navCtrl.push(KeyboardPage, {myRid:this.myRid});
+                    });
                 }
             }, error => {
                 this.showAlert();
@@ -159,4 +188,16 @@ export class HomePage {
       confirm.present()
     }     
   }
+  /*
+  getLocalData(){
+  // set a key/value
+    this.storage.set('rid',this.rid);
+  }
+  lookLocalData(){
+    // Or to get a key/value pair
+    this.storage.get('rid').then((val) => {
+      console.log('Your rid is', val);
+    });
+  }
+  */
 }

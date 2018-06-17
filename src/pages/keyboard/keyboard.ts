@@ -21,23 +21,28 @@ export class KeyboardPage {
     private timer;
     interval:any;
     duration:any;
+    myRid:any;
     
     constructor(public navCtrl: NavController, public navParams: NavParams, public http:Http, public alertCtrl: AlertController, private ref : ChangeDetectorRef, public insomnia: Insomnia) {
-        this.rid = this.navParams.get('rid'); //接收上一頁的ID
-        this.getLastNum();
+        this.rid = this.navParams.get('myRid'); //接收上一頁的ID
+        console.log(this.rid);
 
+        this.getLastNum();
+        
         this.insomnia.keepAwake()
         .then(
             () => console.log('success'),
             () => console.log('error')
         );
-
+        
+        
         var dur = 1;
         this.interval = setInterval(()=>{
             dur = dur +1;
             this.duration = dur;
             this.getLastNum();
         }, 1500);
+        
     }
 
 //刷新-----------------------------------------------------------------------------------
@@ -49,7 +54,7 @@ export class KeyboardPage {
         setTimeout(() => {
           console.log('Async operation has ended');
           refresher.complete();
-        }, 1500);
+        },1500);
     }
 
 //當前叫號--------------------------------------------------------------------------------

@@ -11,6 +11,8 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { KeyboardPage } from '../pages/keyboard/keyboard';
 
+//存
+import { IonicStorageModule } from '@ionic/storage';
 @NgModule({
   declarations: [
     MyApp,
@@ -20,7 +22,8 @@ import { KeyboardPage } from '../pages/keyboard/keyboard';
   imports: [
     BrowserModule,
     HttpModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
