@@ -3,7 +3,6 @@
     <ion-navbar>
         <ion-title>CQ2 叫號系統</ion-title>
     </ion-navbar>
-    
 
     <ion-refresher (ionRefresh)="doRefresh($event)">
         <ion-refresher-content>刷新</ion-refresher-content>
@@ -11,7 +10,7 @@
     <div class="number">
         <ion-grid>
             <ion-row>
-                <ion-col>當前號碼:{{num_plate}}</ion-col>
+                <ion-col>{{num_plate}}</ion-col>
             </ion-row>
         </ion-grid>
     </div>
@@ -29,9 +28,10 @@
     <div class ="keyboard">
         <h2>輸入號碼</h2>
         <div class="inputNum">
-            <ion-input type="number"[(ngModel)]="manualInput" max=999 min=1></ion-input>
+            <div class="inputBox">
+                <ion-input type="number"[(ngModel)]="manualInput" max=999 min=1></ion-input>
+            </div>  
             <button class="button button-block button-positive" (click)="loadData()">確認</button>
-            
         </div>
     </div>
   </ion-content>

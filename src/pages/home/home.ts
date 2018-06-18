@@ -4,6 +4,7 @@ import { AlertController } from 'ionic-angular';
 import { KeyboardPage } from '../keyboard/keyboard';
 import { Http } from '@angular/Http';
 import { URLSearchParams } from '@angular/http';
+import { Storage } from '@ionic/storage';
 import 'rxjs/add/operator/map';
 
 @Component({
@@ -23,6 +24,7 @@ export class HomePage {
   rid_result:any;
   id:number;
   sid:number;
+  myRid:number;
   store_name:string;
   addr:string;
   value:string;
@@ -34,40 +36,46 @@ export class HomePage {
   myCityStore=[];
   myCityStoreId=[];
 
-	constructor(public navCtrl: NavController, public http:Http, public alertCtrl: AlertController) {
-    	let params: URLSearchParams = new URLSearchParams();
+	constructor(public navCtrl: NavController, public http:Http, public alertCtrl: AlertController, public storage: Storage) {
+    let params: URLSearchParams = new URLSearchParams();
 		  this.http.post('https://cq2.robelf.com/api.php?api=Extra_getStoreList', {search: params})			
-          .subscribe(
-            (data) => {
-              this.items=data.json()['data'];
-              this.getData(this.items);
-            },(err) => {
-              this.showAlert();
-            }
-          );
-   }
+      .subscribe(
+        (data) => {
+          this.items=data.json()['data'];
+          this.getData(this.items);
+        },(err) => {
+          this.showAlert();
+        }
+      );
+    
+      /*this.storage.get('rid').then((val) => {
+        this.myRid=Number(val);
+        if ((this.myRid) !==null){
+          this.navCtrl.push(KeyboardPage, {myRid:this.myRid});
+        }
+      });*/
+  }
 
 //資料陣列------------------------------------------------------------
 	getData(myString){	
-      this.result = new Set(); //新增集合	
-      
-      for(var i=0; i< myString.length; i++){
-		    //取出若干欄位資料
-        var id= myString[i].id;
-        var addr=myString[i].addr;				
-        var store_name=myString[i].store_name;
+    this.result = new Set(); //新增集合	
+    for(var i=0; i< myString.length; i++){
+		  //取出若干欄位資料
+      var id= myString[i].id;
+      var addr=myString[i].addr;				
+      var store_name=myString[i].store_name;
 
-        //將存有資料的物件加入陣列
-        this.myId.push(id);
-        this.myAddr.push(addr.substring(0,3));//擷取地址前3位放入陣列
-        this.myStore_name.push(store_name);
+      //將存有資料的物件加入陣列
+      this.myId.push(id);
+      this.myAddr.push(addr.substring(0,3));//擷取地址前3位放入陣列
+      this.myStore_name.push(store_name);
 		    
-        //如果集合內沒有相同的值，就放入reault中
-        if (this.result.has(addr.substring(0,3)) != true){
-           this.result.add(addr.substring(0,3));
-        }
+      //如果集合內沒有相同的值，就放入reault中
+      if (this.result.has(addr.substring(0,3)) != true){
+        this.result.add(addr.substring(0,3));
+      }
         
-      }                  
+    }                  
   }
 
 //店鋪縣市------------------------------------------------------------
@@ -100,12 +108,12 @@ export class HomePage {
 
  //連線失敗訊息------------------------------------------------------------
   showAlert() {
-      let alert = this.alertCtrl.create({
-          title: '連線失敗!',
-          subTitle: '請確定網路狀態, 或是主機是否提供服務中.',
-          buttons: ['OK']
-      });
-      alert.present();
+    let alert = this.alertCtrl.create({
+      title: '連線失敗!',
+      subTitle: '請確定網路狀態, 或是主機是否提供服務中.',
+      buttons: ['OK']
+    });
+    alert.present();
   }
 
  //防呆訊息----------------------------------------------------------------
@@ -148,7 +156,12 @@ export class HomePage {
                   });
                 alert.present();
                 }else{
-                  this.navCtrl.push(KeyboardPage, {rid:this.rid});
+                  /*this.storage.set('rid',this.rid);
+                  this.storage.get('rid').then((val) => {
+                    this.myRid=Number(val);
+                    this.navCtrl.push(KeyboardPage, {myRid:this.myRid});
+                    });*/
+                    this.navCtrl.push(KeyboardPage, {rid:this.rid});
                 }
             }, error => {
                 this.showAlert();

@@ -5,6 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { HttpModule } from '@angular/Http';
 import { Insomnia } from '@ionic-native/insomnia';
+import { IonicStorageModule } from '@ionic/storage';
 
 
 import { MyApp } from './app.component';
@@ -20,7 +21,8 @@ import { KeyboardPage } from '../pages/keyboard/keyboard';
   imports: [
     BrowserModule,
     HttpModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
