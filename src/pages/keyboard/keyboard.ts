@@ -4,6 +4,9 @@ import { Http } from '@angular/Http';
 import { AlertController } from 'ionic-angular';
 import { OnInit,ChangeDetectionStrategy,ChangeDetectorRef,OnDestroy} from  "@angular/core";
 import { Insomnia } from '@ionic-native/insomnia';
+import { HomePage } from '../home/home';
+
+import { Storage } from '@ionic/storage';
 
 @IonicPage()
 @Component({
@@ -24,7 +27,7 @@ export class KeyboardPage {
     myRid:any;
     
     constructor(public navCtrl: NavController, public navParams: NavParams, public http:Http, public alertCtrl: AlertController, private ref : ChangeDetectorRef, public insomnia: Insomnia) {
-        this.rid = this.navParams.get('myRid'); //接收上一頁的ID
+        this.rid = this.navParams.get('rid'); //接收上一頁的ID
         console.log(this.rid);
 
         this.getLastNum();

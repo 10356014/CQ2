@@ -12,8 +12,12 @@
         
       <ion-item> 
         <ion-label>店鋪縣市</ion-label>
-          <ion-select [(ngModel)]="citySelect" (ionChange)="selectCity($event)" >
-            <ion-option *ngFor="let item of result" value= {{item}} > {{item}} </ion-option> 
+          <ion-select [(ngModel)]="citySelect" (ngModelChange)="selectCity()">
+          <!--<ion-select [(ngModel)]="citySelect" (ionChange)="selectCity($event)" >-->
+            <!--<ion-option *ngFor="let item of result" value= {{item}} > {{item}} </ion-option> -->
+            <div *ngFor="let item of result">
+              <ion-option value="{{item}}"> {{item}}</ion-option>
+            </div>
           </ion-select>     
       </ion-item>
             

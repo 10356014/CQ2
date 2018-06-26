@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams} from 'ionic-angular';
+import { NavController} from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 import { KeyboardPage } from '../keyboard/keyboard';
 import { Http } from '@angular/Http';
@@ -36,26 +36,11 @@ export class HomePage {
   myStore_name=[];
   myCityStore=[];
   myCityStoreId=[];
-  myRid:number;
+  
+
 
 	constructor(public navCtrl: NavController, public http:Http, public alertCtrl: AlertController, public storage: Storage) {
-      /*
-      if (this.storage.get('rid')!=null){
-        console.log(this.storage.get('rid'));
-        //this.navCtrl.push(KeyboardPage, {rid:this.storage.get('rid')});
-        console.log('rid is'+this.rid);
-      }
-      */
-      this.storage.get('rid').then((val) => {
-        this.myRid=Number(val);
-        if ((this.myRid) !==null){
-          this.navCtrl.push(KeyboardPage, {myRid:this.myRid});
-        }
-      });
-
-      
-
-    	let params: URLSearchParams = new URLSearchParams();
+      let params: URLSearchParams = new URLSearchParams();
 		  this.http.post('https://cq2.robelf.com/api.php?api=Extra_getStoreList', {search: params})			
           .subscribe(
             (data) => {
@@ -64,7 +49,13 @@ export class HomePage {
             },(err) => {
               this.showAlert();
             }
-          );
+      );
+
+
+      this.citySelect="臺北市";
+      this.selectCity(this.citySelect);
+
+      
 
 
    }
@@ -93,17 +84,19 @@ export class HomePage {
   }
 
 //店鋪縣市------------------------------------------------------------
-  selectCity(citySelect) {  
+  selectCity(citySelect) { 
     console.log(citySelect);  
+    
     this.myCityStore=[];
     this.myCityStoreId=[];
     
     for(var i=0; i< this.myAddr.length; i++){
-      if (this.myAddr[i]==citySelect){
-      var cityStore= this.myStore_name[i];
-      this.myCityStore.push(cityStore);
-      var cityStoreId= this.myId[i];
-      this.myCityStoreId.push(cityStoreId);
+      if (this.myAddr[i]==this.citySelect){
+        console.log(this.myAddr[i]);  
+        var cityStore= this.myStore_name[i];
+        this.myCityStore.push(cityStore);
+        var cityStoreId= this.myId[i];
+        this.myCityStoreId.push(cityStoreId);
       }
     }
   }  
@@ -171,13 +164,7 @@ export class HomePage {
                   });
                 alert.present();
                 }else{
-                  //存下rid
-                  
-                  this.storage.set('rid',this.rid);
-                  this.storage.get('rid').then((val) => {
-                    this.myRid=Number(val);
-                    this.navCtrl.push(KeyboardPage, {myRid:this.myRid});
-                    });
+                    this.navCtrl.push(KeyboardPage, {rid:this.rid});
                 }
             }, error => {
                 this.showAlert();
