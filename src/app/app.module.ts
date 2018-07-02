@@ -5,14 +5,14 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { HttpModule } from '@angular/Http';
 import { Insomnia } from '@ionic-native/insomnia';
+import { IonicStorageModule } from '@ionic/storage';
+import { NativeStorage } from '@ionic-native/native-storage';
 
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { KeyboardPage } from '../pages/keyboard/keyboard';
 
-//存
-import { IonicStorageModule } from '@ionic/storage';
 @NgModule({
   declarations: [
     MyApp,
@@ -35,6 +35,7 @@ import { IonicStorageModule } from '@ionic/storage';
     StatusBar,
     SplashScreen,
     Insomnia,
+    NativeStorage ,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
