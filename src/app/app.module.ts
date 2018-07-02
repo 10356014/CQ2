@@ -13,6 +13,8 @@ import { KeyboardPage } from '../pages/keyboard/keyboard';
 
 //存
 import { IonicStorageModule } from '@ionic/storage';
+import { NativeStorage } from '@ionic-native/native-storage';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -35,7 +37,8 @@ import { IonicStorageModule } from '@ionic/storage';
     StatusBar,
     SplashScreen,
     Insomnia,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    NativeStorage
   ]
 })
 export class AppModule {}
