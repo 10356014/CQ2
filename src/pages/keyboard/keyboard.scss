@@ -27,9 +27,7 @@
 .number .col{
     text-align: center;
     margin:auto;
-    font-size: 80px;
-    padding-top: 0px;
-    padding-bottom: 0px;
+    font-size: 35px;
 }
 
 .number{ 
@@ -56,10 +54,9 @@
     height:60px;
     background: rgba(255,79,49,0.8px);
     margin:auto;
-    margin-left:8px;
     margin-bottom: 20px;
     font-size:25px;
-    width:90%;
+    width:100%;
     font-family: 'Noto Sans TC', sans-serif;
     font-weight:200;
     border: none;
@@ -75,16 +72,16 @@
 
 .keyboard{
     background: rgba(232,230,230,0.2px);
-    margin:7px;
-    height:220px;
-    padding-top:1px;
+    margin:8px;
+    height:240px;
+    padding:10px;
     border-radius: 20px;
     font-family: 'Noto Sans TC', sans-serif;
     font-weight:500;
 }
 .inputNum .input{
     height: 50px;
-    width: 8cm;
+    width: 90%;
     margin: auto;
     font-size: 28px;
     background: #fff8edbe;    
@@ -96,7 +93,6 @@
     background: rgba(53, 109, 206, 0.9);
     color: #FFFEFF;
     margin:auto;
-    margin-right: 20px;
     margin-bottom: 20px;
     margin-top: 25px;
     font-size:25px;
@@ -108,14 +104,6 @@
 }
 .inputNum .button:active {
     background: rgba(40,71,128,0.98px);
-}
-.inputBox{ 
-    margin:auto;
-    width: 8cm;
-    font-family: 'Noto Sans TC', sans-serif;
-    background: rgba(232,230,230,0.4px);
-    padding:0px;
-    border-radius: 20px;
 }
 
 
