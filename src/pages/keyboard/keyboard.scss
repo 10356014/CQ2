@@ -11,6 +11,15 @@
     
 }
 
+.store_name{
+    text-align: center;
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 28px;
+    margin-left: 15px;
+    margin-right: 15px;
+    font-weight: bold;
+}
+
 /*---------------------------*/
 /* 定義內容                   */
 /*---------------------------*/
@@ -19,29 +28,24 @@
     background:linear-gradient(10deg,#4E5EFC,#4EE7FC);
 }
 ///----------------------
-.number .grid{
-    margin: auto;
-    padding: 0px;
-
-}
-.number .col{
-    text-align: center;
-    margin:auto;
-    font-size: 35px;
-}
 
 .number{ 
-    margin: 7px;
-    margin-top: 30px;
+    height: 90px;
+    font-size: 45px;
+    margin: 17px;
+    margin-top: 20px;
     margin-bottom: 20px;
     font-family: 'Noto Sans TC', sans-serif;
-    font-weight:100;
     font-weight: bold;
     background: rgba(232,230,230,0.4px);
     padding:10px;
     border-radius: 20px;
 }
 ///----------------------
+.common{
+    margin-left: 15px;
+    margin-right: 15px;
+}
 .common .grid{
     margin: auto;
     padding: 0px;
@@ -72,22 +76,14 @@
 
 .keyboard{
     background: rgba(232,230,230,0.2px);
-    margin:8px;
+    margin:15px;
     height:240px;
     padding:10px;
     border-radius: 20px;
     font-family: 'Noto Sans TC', sans-serif;
     font-weight:500;
 }
-.inputNum .input{
-    height: 50px;
-    width: 90%;
-    margin: auto;
-    font-size: 28px;
-    background: #fff8edbe;    
-    border: none;
-    border-radius: 10px;
-}
+
 .inputNum .button{
     height:50px;
     background: rgba(53, 109, 206, 0.9);
@@ -105,6 +101,14 @@
 .inputNum .button:active {
     background: rgba(40,71,128,0.98px);
 }
-
+.inputNum{
+    height: 50px;
+    width: 90%;
+    margin: auto;
+    font-size: 28px;
+    background: #fff8edbe;    
+    border: none;
+    border-radius: 10px;
+}
 
 

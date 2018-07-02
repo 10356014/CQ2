@@ -7,13 +7,12 @@
     <ion-refresher (ionRefresh)="doRefresh($event)">
         <ion-refresher-content>刷新</ion-refresher-content>
     </ion-refresher>
-    
+    <div class="store_name">
+        <ion-col>{{store_name}}</ion-col>
+    </div>
+
     <div class="number">
-        <ion-grid>
-            <ion-row>
-                <ion-col>當前號碼:{{num_plate}}</ion-col>
-            </ion-row>
-        </ion-grid>
+        <ion-col>{{num_plate}}</ion-col>
     </div>
 
     <div class="common">

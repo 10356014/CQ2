@@ -16,6 +16,7 @@ export class KeyboardPage {
     manualInput:any;
     rid:any;
     sid:any;
+    store_name:any;
     data:any;
     vip:any;
     cus:any;
@@ -28,6 +29,8 @@ export class KeyboardPage {
     constructor(public navCtrl: NavController, public navParams: NavParams, public http:Http, public alertCtrl: AlertController, private ref : ChangeDetectorRef, public insomnia: Insomnia) {
         //this.rid = this.navParams.get('rid'); //接收上一頁的ID
         this.sid = this.navParams.get('sid'); //接收上一頁的ID
+        this.store_name = this.navParams.get('store_name'); //接收上一頁的ID
+        
         this.getLastNum();
 
         this.insomnia.keepAwake()

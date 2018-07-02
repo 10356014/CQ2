@@ -1,4 +1,3 @@
-
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
@@ -27,7 +26,7 @@ export class HomePage {
   id:number;
   sid:number;
   myRid:number;
-  store_name:string;
+  store_name:any;
   addr:string;
   value:string;
   myString:string[];
@@ -179,11 +178,16 @@ export class HomePage {
                 console.log('Your age is', pushId);
                 this.pushId=pushId;
             });
+            this.storage.get('storeSelect').then((storeSelect) => {
+              console.log('Your age is', storeSelect);
+              this.storeSelect=storeSelect;
+          });
 
             this.sid=this.pushId;
+            this.store_name=this.storeSelect;
             //console.log(this.sid);
             //this.storage.set('sid', this.sid);
-            this.navCtrl.push(KeyboardPage, {sid:this.sid});
+            this.navCtrl.push(KeyboardPage, {sid:this.sid , store_name:this.store_name});
 
             /*let params = new FormData();
             params.append('sid', this.pushId);
