@@ -6,7 +6,6 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { HttpModule } from '@angular/Http';
 import { Insomnia } from '@ionic-native/insomnia';
 import { IonicStorageModule } from '@ionic/storage';
-import { NativeStorage } from '@ionic-native/native-storage';
 
 
 import { MyApp } from './app.component';
@@ -35,7 +34,6 @@ import { KeyboardPage } from '../pages/keyboard/keyboard';
     StatusBar,
     SplashScreen,
     Insomnia,
-    NativeStorage ,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

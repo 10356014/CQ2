@@ -11,41 +11,50 @@
     
 }
 
-.store_name{
-    text-align: center;
-    font-family: 'Noto Sans TC', sans-serif;
-    font-size: 25px;
-    margin-left: 15px;
-    margin-right: 15px;
-    font-weight: bold;
-}
-
 /*---------------------------*/
 /* 定義內容                   */
 /*---------------------------*/
 .content{
     max-width:100%;
+<<<<<<< HEAD
     background:linear-gradient(10deg,rgb(151, 161, 251),#4EE7FC);
+=======
+    background:linear-gradient(10deg,#4E5EFC,#4EE7FC);
+>>>>>>> parent of 602b79a... 初始號為1
 }
 ///----------------------
+.number .grid{
+    margin: auto;
+    padding: 0px;
+
+}
+.number .col{
+    text-align: center;
+    margin:auto;
+    font-size: 80px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
 
 .number{ 
+<<<<<<< HEAD
     height: 90px;
     font-size: 45px;
     margin: 17px;
     margin-top: 25px;
+=======
+    margin: 7px;
+    margin-top: 30px;
+>>>>>>> parent of 602b79a... 初始號為1
     margin-bottom: 20px;
     font-family: 'Noto Sans TC', sans-serif;
+    font-weight:100;
     font-weight: bold;
     background: rgba(232,230,230,0.4px);
     padding:10px;
     border-radius: 20px;
 }
 ///----------------------
-.common{
-    margin-left: 15px;
-    margin-right: 15px;
-}
 .common .grid{
     margin: auto;
     padding: 0px;
@@ -56,11 +65,16 @@
   }
 .common .button{
     height:60px;
+<<<<<<< HEAD
     background: rgba(220,111,115,0.9px);
+=======
+    background: rgba(255,79,49,0.8px);
+>>>>>>> parent of 602b79a... 初始號為1
     margin:auto;
+    margin-left:8px;
     margin-bottom: 20px;
     font-size:25px;
-    width:100%;
+    width:90%;
     font-family: 'Noto Sans TC', sans-serif;
     font-weight:200;
     border: none;
@@ -76,39 +90,61 @@
 
 .keyboard{
     background: rgba(232,230,230,0.2px);
-    margin:15px;
-    height:240px;
-    padding:10px;
+    margin:7px;
+    height:220px;
+    padding-top:1px;
     border-radius: 20px;
     font-family: 'Noto Sans TC', sans-serif;
     font-weight:500;
 }
-
+.inputNum .input{
+    height: 50px;
+    width: 8cm;
+    margin: auto;
+    font-size: 28px;
+    background: #fff8edbe;    
+    border: none;
+    border-radius: 10px;
+}
 .inputNum .button{
     height:60px;
     background: rgba(53, 109, 206, 0.9);
     color: #FFFEFF;
     margin:auto;
+    margin-right: 20px;
     margin-bottom: 20px;
+<<<<<<< HEAD
     margin-top: 15px;
+=======
+    margin-top: 25px;
+>>>>>>> parent of 602b79a... 初始號為1
     font-size:25px;
     width:30%;
     font-family: 'Noto Sans TC', sans-serif;
     font-weight:200;
     border: none;
-    border-radius: 10px;
+    border-radius: 50px;
 }
 .inputNum .button:active {
     background: rgba(40,71,128,0.98px);
 }
+<<<<<<< HEAD
 
 .inputBox{ 
     margin:auto;
     width: 95%;
     font-family: 'Noto Sans TC', sans-serif;
     background: rgba(232,230,230,0.7px);
+=======
+.inputBox{ 
+    margin:auto;
+    width: 8cm;
+    font-family: 'Noto Sans TC', sans-serif;
+    background: rgba(232,230,230,0.4px);
+>>>>>>> parent of 602b79a... 初始號為1
     padding:0px;
     border-radius: 20px;
 }
+
 
 
