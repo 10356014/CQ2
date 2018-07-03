@@ -25,7 +25,7 @@
 /*---------------------------*/
 .content{
     max-width:100%;
-    background:linear-gradient(10deg,rgb(116, 129, 246),#4EE7FC);
+    background:linear-gradient(10deg,rgb(151, 161, 251),#4EE7FC);
 }
 ///----------------------
 
@@ -33,7 +33,7 @@
     height: 90px;
     font-size: 45px;
     margin: 17px;
-    margin-top: 20px;
+    margin-top: 25px;
     margin-bottom: 20px;
     font-family: 'Noto Sans TC', sans-serif;
     font-weight: bold;
@@ -56,7 +56,7 @@
   }
 .common .button{
     height:60px;
-    background: rgba(220,96,89,0.9px);
+    background: rgba(220,111,115,0.9px);
     margin:auto;
     margin-bottom: 20px;
     font-size:25px;
@@ -85,12 +85,12 @@
 }
 
 .inputNum .button{
-    height:50px;
+    height:60px;
     background: rgba(53, 109, 206, 0.9);
     color: #FFFEFF;
     margin:auto;
     margin-bottom: 20px;
-    margin-top: 10px;
+    margin-top: 15px;
     font-size:25px;
     width:30%;
     font-family: 'Noto Sans TC', sans-serif;
@@ -101,14 +101,14 @@
 .inputNum .button:active {
     background: rgba(40,71,128,0.98px);
 }
-.inputNum{
-    height: 50px;
-    width: 90%;
-    margin: auto;
-    font-size: 28px;
-    background: #fff8edbe;    
-    border: none;
-    border-radius: 10px;
+
+.inputBox{ 
+    margin:auto;
+    width: 95%;
+    font-family: 'Noto Sans TC', sans-serif;
+    background: rgba(232,230,230,0.7px);
+    padding:0px;
+    border-radius: 20px;
 }
 
 
