@@ -49,25 +49,27 @@ export class HomePage {
         }
       );
 
-      console.log(this.selectId);
-    
+   
       // Or to get a key/value pair
       this.storage.get('citySelect').then((citySelect) => {
-        console.log('Your age is', citySelect);
+        console.log('選擇縣市：', citySelect);
         this.citySelect=citySelect;
+        this.selectCity(this.citySelect);
       });
+      
 
       this.storage.get('storeSelect').then((storeSelect) => {
-          console.log('Your age is', storeSelect);
+          console.log('選擇店鋪：', storeSelect);
           this.storeSelect=storeSelect;
+          
       });
 
       this.storage.get('pushId').then((pushId) => {
-          console.log('Your age is', pushId);
+          console.log('選擇店鋪ID：', pushId);
           this.pushId=pushId;
       });
 
-
+      
       /*this.storage.get('rid').then((val) => {
         this.myRid=Number(val);
         if ((this.myRid) !==null){
@@ -89,43 +91,41 @@ export class HomePage {
       this.myId.push(id);
       this.myAddr.push(addr.substring(0,3));//擷取地址前3位放入陣列
       this.myStore_name.push(store_name);
-		    
-      //如果集合內沒有相同的值，就放入reault中
+		  
+      //如果集合內沒有相同的值，就放入result中
       if (this.result.has(addr.substring(0,3)) != true){
         this.result.add(addr.substring(0,3));
-      }
-        
-    }                  
+      }  
+    }  
+    this.selectCity(this.citySelect);                
   }
 
 //店鋪縣市------------------------------------------------------------
   selectCity(citySelect) {  
-    console.log(citySelect);  
+    //console.log(citySelect);  
     this.myCityStore=[];
     this.myCityStoreId=[];
-    
+
     this.storage.set('citySelect', citySelect);
-    console.log(citySelect);
+    
 
     for(var i=0; i< this.myAddr.length; i++){
-      if (this.myAddr[i]==citySelect){
+      if (citySelect==this.myAddr[i]){
         var cityStore= this.myStore_name[i];
         this.myCityStore.push(cityStore);
         var cityStoreId= this.myId[i];
         this.myCityStoreId.push(cityStoreId);
       }
     }
-
-
   }  
 
 //店鋪名稱------------------------------------------------------------
   selectStore(storeSelect) {  
     console.log(storeSelect); 
-        
+     
     this.storage.set('storeSelect', storeSelect);
-    console.log(storeSelect);
-
+    //console.log(storeSelect);
+    
     for(var i=0; i< this.myStore_name.length; i++){
       if (this.myStore_name[i]==storeSelect){
         var selectId=this.myId[i];
@@ -175,13 +175,13 @@ export class HomePage {
             handler: () => {
             
             this.storage.get('pushId').then((pushId) => {
-                console.log('Your age is', pushId);
+                console.log('選擇店鋪ID', pushId);
                 this.pushId=pushId;
             });
             this.storage.get('storeSelect').then((storeSelect) => {
-              console.log('Your age is', storeSelect);
+              console.log('選擇店鋪', storeSelect);
               this.storeSelect=storeSelect;
-          });
+            });
 
             this.sid=this.pushId;
             this.store_name=this.storeSelect;
@@ -222,20 +222,5 @@ export class HomePage {
       confirm.present()
     }     
   }
-
-  /*public set1 (citySelect,city_value){
-    return this.storage.set(`setting:${ citySelect }`,city_value);
-  }
-  public set2 (storeSelect,store_value){
-    return this.storage.set(`setting:${ storeSelect }`,store_value);
-  }
-
-  public async get1 (citySelect){
-    return await this.storage.get(`setting:${ citySelect }`);
-  }
-  public async get2 (storeSelect){
-    return await this.storage.get(`setting:${ storeSelect }`);
-  }*/
-
 }
 

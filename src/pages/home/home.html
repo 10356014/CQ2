@@ -20,7 +20,7 @@
       <ion-item>
         <ion-label>店鋪名稱</ion-label>
           <ion-select [(ngModel)]="storeSelect" (ionChange)="selectStore($event)" >
-            <ion-option *ngFor="let name of myStore_name" value= {{name}} > {{name}} </ion-option> 
+            <ion-option *ngFor="let store of myCityStore" value= {{store}} > {{store}} </ion-option> 
           </ion-select>
       </ion-item>
             
