@@ -25,13 +25,14 @@ export class KeyboardPage {
     duration:any;
     myRid:any;
     private timer;
+    last:any;
     
     constructor(public navCtrl: NavController, public navParams: NavParams, public http:Http, public alertCtrl: AlertController, private ref : ChangeDetectorRef, public insomnia: Insomnia) {
         //this.rid = this.navParams.get('rid'); //接收上一頁的ID
         this.sid = this.navParams.get('sid'); //接收上一頁的ID
         this.store_name = this.navParams.get('store_name'); //接收上一頁的ID
         
-        this.getLastNum();
+        this.startNum()
 
         this.insomnia.keepAwake()
         .then(
@@ -44,7 +45,7 @@ export class KeyboardPage {
             dur = dur +1;
             this.duration = dur;
             this.getLastNum();
-        }, 1200);
+        }, 1500);
     }
 
 //停止計時器-----------------------------------------------------------------------------
@@ -63,7 +64,33 @@ export class KeyboardPage {
           refresher.complete();
         }, 1000);
     }
-
+//起始叫號--------------------------------------------------------------------------------
+    startNum(){
+        let params = new FormData();
+        params.append('sid', this.sid);
+        this.http.post('https://cq2.robelf.com/api.php?api=Extra_getLastNumber',params)
+            .subscribe(data => {
+                this.data=data.json()['data'];
+                this.num_plate= this.data.num_plate;
+                if(this.num_plate == undefined){
+                    let params = new FormData();
+                    params.append('num_plate', "1");
+                    params.append('sid', this.sid);
+                    this.http.post('https://cq2.robelf.com/api.php?api=Extra_addNumPlate',params)
+                    .subscribe(data => {
+                            this.last=data.json()['result'];
+                            console.log(this.last);
+                        }, error => {
+                            this.showAlert();
+                        }
+                    );
+                }else{
+                    this.getLastNum();
+                }
+            }, error => {
+                this.showAlert();
+            });
+    }
 //當前叫號--------------------------------------------------------------------------------
     getLastNum(){
         let params = new FormData();
@@ -73,7 +100,6 @@ export class KeyboardPage {
                 this.data=data.json()['data'];
                 this.num_plate= this.data.num_plate;
                 console.log(this.num_plate);
-
             }, error => {
                 this.showAlert();
             });
@@ -94,18 +120,11 @@ export class KeyboardPage {
                 handler: () => {
                     let params = new FormData();
                     params.append('num_plate', '-1');
-                    params.append('rid', this.rid);
+                    params.append('sid', this.sid);
                     this.http.post('https://cq2.robelf.com/api.php?api=Extra_addNumPlate',params)
                     .subscribe(data => {
-                        this.vip=data.json()['result'];
-                                if(this.vip == 1){
-                                    let alert = this.alertCtrl.create({
-                                        title: '提示',
-                                        subTitle: '預約客已在叫號列表中',
-                                        buttons: ['確定']
-                                    });
-                                    alert.present();
-                                }
+                            this.vip=data.json()['result'];
+                            console.log(this.vip);
                         }, error => {
                             this.showAlert();
                         }
