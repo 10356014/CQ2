@@ -25,7 +25,7 @@
 /*---------------------------*/
 .content{
     max-width:100%;
-    background:linear-gradient(10deg,#4E5EFC,#4EE7FC);
+    background:linear-gradient(10deg,rgb(116, 129, 246),#4EE7FC);
 }
 ///----------------------
 
@@ -56,7 +56,7 @@
   }
 .common .button{
     height:60px;
-    background: rgba(255,79,49,0.8px);
+    background: rgba(220,96,89,0.9px);
     margin:auto;
     margin-bottom: 20px;
     font-size:25px;
@@ -90,13 +90,13 @@
     color: #FFFEFF;
     margin:auto;
     margin-bottom: 20px;
-    margin-top: 25px;
+    margin-top: 10px;
     font-size:25px;
     width:30%;
     font-family: 'Noto Sans TC', sans-serif;
     font-weight:200;
     border: none;
-    border-radius: 50px;
+    border-radius: 10px;
 }
 .inputNum .button:active {
     background: rgba(40,71,128,0.98px);
