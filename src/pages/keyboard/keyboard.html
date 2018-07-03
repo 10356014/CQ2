@@ -1,44 +1,40 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <ion-content>
-    <ion-navbar>
-        <ion-title>CQ2 叫號系統</ion-title>
+<ion-content>
+    <ion-navbar> 
+        <ion-title>CQ2叫號系統</ion-title> 
     </ion-navbar>
 
     <ion-refresher (ionRefresh)="doRefresh($event)">
         <ion-refresher-content>刷新</ion-refresher-content>
     </ion-refresher>
+    <div class="store_name">
+        <ion-col>{{store_name}}</ion-col>
+    </div>
+
     <div class="number">
-        <ion-grid>
-            <ion-row>
-                <ion-col>{{num_plate}}</ion-col>
-            </ion-row>
-        </ion-grid>
+        <ion-col>{{num_plate}}</ion-col>
     </div>
 
     <div class="common">
         <ion-grid>
-          <ion-row>
+        <ion-row>
             <ion-col ><button ion-button (click)="callVIP()">預約客</button></ion-col>
             <ion-col ><button ion-button (click)="callCus()">+1</button></ion-col>
-          </ion-row>
+        </ion-row>
         </ion-grid>
     </div>
 
-    
+
     <div class ="keyboard">
         <h2>輸入號碼</h2>
         <div class="inputNum">
             <div class="inputBox">
                 <ion-input type="number"[(ngModel)]="manualInput" max=999 min=1></ion-input>
-<<<<<<< HEAD
             </div>
-=======
-            </div>  
->>>>>>> parent of 602b79a... 初始號為1
             <button class="button button-block button-positive" (click)="loadData()">確認</button>
         </div>
     </div>
-  </ion-content>
+</ion-content>
 
 
 
