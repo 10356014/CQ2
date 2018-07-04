@@ -6,6 +6,7 @@ import { Http } from '@angular/Http';
 import { URLSearchParams } from '@angular/http';
 import { Storage } from '@ionic/storage';
 import 'rxjs/add/operator/map';
+import { NativeStorage } from '@ionic-native/native-storage';
 
 @Component({
   selector: 'page-home',
@@ -25,7 +26,7 @@ export class HomePage {
   id:number;
   sid:number;
   myRid:number;
-  store_name:string;
+  store_name:any;
   addr:string;
   value:string;
   myString:string[];
@@ -36,7 +37,7 @@ export class HomePage {
   myCityStore=[];
   myCityStoreId=[];
 
-	constructor(public navCtrl: NavController, public http:Http, public alertCtrl: AlertController, public storage: Storage) {
+	constructor(public navCtrl: NavController, public http:Http, public alertCtrl: AlertController, private storage: Storage, private nativeStorage: NativeStorage) {
     let params: URLSearchParams = new URLSearchParams();
 		  this.http.post('https://cq2.robelf.com/api.php?api=Extra_getStoreList', {search: params})			
       .subscribe(
@@ -47,7 +48,28 @@ export class HomePage {
           this.showAlert();
         }
       );
-    
+
+   
+      // Or to get a key/value pair
+      this.storage.get('citySelect').then((citySelect) => {
+        console.log('選擇縣市：', citySelect);
+        this.citySelect=citySelect;
+        this.selectCity(this.citySelect);
+      });
+      
+
+      this.storage.get('storeSelect').then((storeSelect) => {
+          console.log('選擇店鋪：', storeSelect);
+          this.storeSelect=storeSelect;
+          
+      });
+
+      this.storage.get('pushId').then((pushId) => {
+          console.log('選擇店鋪ID：', pushId);
+          this.pushId=pushId;
+      });
+
+      
       /*this.storage.get('rid').then((val) => {
         this.myRid=Number(val);
         if ((this.myRid) !==null){
@@ -69,41 +91,51 @@ export class HomePage {
       this.myId.push(id);
       this.myAddr.push(addr.substring(0,3));//擷取地址前3位放入陣列
       this.myStore_name.push(store_name);
-		    
-      //如果集合內沒有相同的值，就放入reault中
+		  
+      //如果集合內沒有相同的值，就放入result中
       if (this.result.has(addr.substring(0,3)) != true){
         this.result.add(addr.substring(0,3));
-      }
-        
-    }                  
+      }  
+    }  
+    this.selectCity(this.citySelect);                
   }
 
 //店鋪縣市------------------------------------------------------------
   selectCity(citySelect) {  
-    console.log(citySelect);  
+    //console.log(citySelect);  
     this.myCityStore=[];
     this.myCityStoreId=[];
+
+    this.storage.set('citySelect', citySelect);
     
+
     for(var i=0; i< this.myAddr.length; i++){
-      if (this.myAddr[i]==citySelect){
-      var cityStore= this.myStore_name[i];
-      this.myCityStore.push(cityStore);
-      var cityStoreId= this.myId[i];
-      this.myCityStoreId.push(cityStoreId);
+      if (citySelect==this.myAddr[i]){
+        var cityStore= this.myStore_name[i];
+        this.myCityStore.push(cityStore);
+        var cityStoreId= this.myId[i];
+        this.myCityStoreId.push(cityStoreId);
       }
     }
   }  
 
 //店鋪名稱------------------------------------------------------------
   selectStore(storeSelect) {  
-    console.log(storeSelect);  
+    console.log(storeSelect); 
+     
+    this.storage.set('storeSelect', storeSelect);
+    //console.log(storeSelect);
+    
     for(var i=0; i< this.myStore_name.length; i++){
       if (this.myStore_name[i]==storeSelect){
         var selectId=this.myId[i];
       }
     }
+
     this.pushId = selectId;
+    this.storage.set('pushId', this.pushId);
     console.log(this.pushId);
+
   }  
 
  //連線失敗訊息------------------------------------------------------------
@@ -142,12 +174,29 @@ export class HomePage {
             text: '確認',
             handler: () => {
             
-            let params = new FormData();
+            this.storage.get('pushId').then((pushId) => {
+                console.log('選擇店鋪ID', pushId);
+                this.pushId=pushId;
+            });
+            this.storage.get('storeSelect').then((storeSelect) => {
+              console.log('選擇店鋪', storeSelect);
+              this.storeSelect=storeSelect;
+            });
+
+            this.sid=this.pushId;
+            this.store_name=this.storeSelect;
+            //console.log(this.sid);
+            //this.storage.set('sid', this.sid);
+            this.navCtrl.push(KeyboardPage, {sid:this.sid , store_name:this.store_name});
+
+            /*let params = new FormData();
             params.append('sid', this.pushId);
             this.http.post('https://cq2.robelf.com/api.php?api=Extra_getRid',params)
             .subscribe(data => {
                 this.rid_result=data.json()['result'];
-                this.rid=data.json()['data'];
+                this.sid=data.json()['data'];
+                this.navCtrl.push(KeyboardPage, {rid:this.rid});
+                this.navCtrl.push(KeyboardPage, {sid:this.sid});
                 if(this.rid_result!=0){
                   let alert = this.alertCtrl.create({
                   title: '通知',
@@ -156,16 +205,17 @@ export class HomePage {
                   });
                 alert.present();
                 }else{
-                  /*this.storage.set('rid',this.rid);
+                  this.storage.set('rid',this.rid);
                   this.storage.get('rid').then((val) => {
                     this.myRid=Number(val);
                     this.navCtrl.push(KeyboardPage, {myRid:this.myRid});
-                    });*/
+                    });
                     this.navCtrl.push(KeyboardPage, {rid:this.rid});
                 }
+
             }, error => {
                 this.showAlert();
-            });
+            });*/
           }
         }]
       });
@@ -173,3 +223,4 @@ export class HomePage {
     }     
   }
 }
+

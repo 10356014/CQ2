@@ -1,12 +1,24 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <ion-content>
+    
+    <!--
     <ion-navbar> 
-        <ion-title>CQ2叫號系統</ion-title> 
     </ion-navbar>
+    -->
+    <ion-navbar hideBackButton="true">  
+        <ion-title>CQ2叫號系統</ion-title>  
+        <ion-buttons end>
+            <button ion-button (click)= " logout ()" >登出</button>
+        </ion-buttons>
+    </ion-navbar> 
+
+    
+   
 
     <ion-refresher (ionRefresh)="doRefresh($event)">
         <ion-refresher-content>刷新</ion-refresher-content>
     </ion-refresher>
+
     <div class="store_name">
         <ion-col>{{store_name}}</ion-col>
     </div>
