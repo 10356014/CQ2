@@ -4,6 +4,9 @@ import { Http } from '@angular/Http';
 import { AlertController } from 'ionic-angular';
 import { OnInit,ChangeDetectionStrategy,ChangeDetectorRef,OnDestroy} from  "@angular/core";
 import { Insomnia } from '@ionic-native/insomnia';
+import { HomePage } from '../home/home';
+import { NativeStorage } from '@ionic-native/native-storage';
+import { Storage } from '@ionic/storage';
 
 @IonicPage()
 @Component({
@@ -26,13 +29,34 @@ export class KeyboardPage {
     myRid:any;
     private timer;
     last:any;
+
+    //----------
+    pushId:any;
+    storeSelect:any;
     
-    constructor(public navCtrl: NavController, public navParams: NavParams, public http:Http, public alertCtrl: AlertController, private ref : ChangeDetectorRef, public insomnia: Insomnia) {
+    constructor(public navCtrl: NavController, public navParams: NavParams, public http:Http, public alertCtrl: AlertController, private ref : ChangeDetectorRef, public insomnia: Insomnia, private storage: Storage, private nativeStorage: NativeStorage) {
         //this.rid = this.navParams.get('rid'); //接收上一頁的ID
+        
+        /*
         this.sid = this.navParams.get('sid'); //接收上一頁的ID
         this.store_name = this.navParams.get('store_name'); //接收上一頁的ID
+        */
+          
+      
+        this.storage.get('pushId').then((pushId) => {
+            console.log('選擇店鋪ID', pushId);
+            this.pushId=pushId;
+            this.sid=this.pushId;
+        });
+    
+        this.storage.get('storeSelect').then((storeSelect) => {
+            console.log('選擇店鋪', storeSelect);
+            this.storeSelect=storeSelect;
+            this.store_name=this.storeSelect;
+        });
+
+
         
-        this.startNum()
 
         this.insomnia.keepAwake()
         .then(
@@ -280,5 +304,10 @@ export class KeyboardPage {
         }
         
     }
+//登出---------------------------------------------------------------------------------
+    logout(){
+        this.storage.clear();
+        this.navCtrl.push(HomePage);
 
+    }
 }

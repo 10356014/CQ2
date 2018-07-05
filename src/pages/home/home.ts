@@ -37,7 +37,7 @@ export class HomePage {
   myCityStore=[];
   myCityStoreId=[];
 
-	constructor(public navCtrl: NavController, public http:Http, public alertCtrl: AlertController, private storage: Storage, private nativeStorage: NativeStorage) {
+	constructor(public navCtrl: NavController, public http:Http, public alertCtrl: AlertController, public storage: Storage, public nativeStorage: NativeStorage) {
     let params: URLSearchParams = new URLSearchParams();
 		  this.http.post('https://cq2.robelf.com/api.php?api=Extra_getStoreList', {search: params})			
       .subscribe(
@@ -49,33 +49,39 @@ export class HomePage {
         }
       );
 
-   
-      // Or to get a key/value pair
-      this.storage.get('citySelect').then((citySelect) => {
-        console.log('選擇縣市：', citySelect);
-        this.citySelect=citySelect;
-        this.selectCity(this.citySelect);
-      });
       
 
-      this.storage.get('storeSelect').then((storeSelect) => {
-          console.log('選擇店鋪：', storeSelect);
-          this.storeSelect=storeSelect;
-          
-      });
+    /*
+    // Or to get a key/value pair
+    */
+    this.storage.get('citySelect').then((citySelect) => {
+      console.log('選擇縣市：', citySelect);
+      this.citySelect=citySelect;
+      this.selectCity(this.citySelect);
+    });
+    
 
-      this.storage.get('pushId').then((pushId) => {
-          console.log('選擇店鋪ID：', pushId);
-          this.pushId=pushId;
-      });
+    this.storage.get('pushId').then((pushId) => {
+    console.log('選擇店鋪ID', pushId);
+    this.pushId=pushId;
+    });
 
-      
-      /*this.storage.get('rid').then((val) => {
-        this.myRid=Number(val);
-        if ((this.myRid) !==null){
-          this.navCtrl.push(KeyboardPage, {myRid:this.myRid});
-        }
-      });*/
+    this.storage.get('storeSelect').then((storeSelect) => {
+      console.log('選擇店鋪', storeSelect);
+      this.storeSelect=storeSelect;
+    });
+
+    this.sid=this.pushId;
+    this.store_name=this.storeSelect;
+
+    
+    /*this.storage.get('rid').then((val) => {
+      this.myRid=Number(val);
+      if ((this.myRid) !==null){
+        this.navCtrl.push(KeyboardPage, {myRid:this.myRid});
+      }
+    });
+    */
   }
 
 //資料陣列------------------------------------------------------------
@@ -102,7 +108,7 @@ export class HomePage {
 
 //店鋪縣市------------------------------------------------------------
   selectCity(citySelect) {  
-    //console.log(citySelect);  
+    console.log(citySelect);  
     this.myCityStore=[];
     this.myCityStoreId=[];
 
@@ -124,18 +130,18 @@ export class HomePage {
     console.log(storeSelect); 
      
     this.storage.set('storeSelect', storeSelect);
-    //console.log(storeSelect);
+    console.log(storeSelect);
     
     for(var i=0; i< this.myStore_name.length; i++){
       if (this.myStore_name[i]==storeSelect){
         var selectId=this.myId[i];
       }
     }
-
+    
     this.pushId = selectId;
     this.storage.set('pushId', this.pushId);
     console.log(this.pushId);
-
+    
   }  
 
  //連線失敗訊息------------------------------------------------------------
