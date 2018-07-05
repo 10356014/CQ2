@@ -48,12 +48,8 @@ export class HomePage {
           this.showAlert();
         }
       );
-
-      
-
-    /*
-    // Or to get a key/value pair
-    */
+    
+    //讀取storage
     this.storage.get('citySelect').then((citySelect) => {
       console.log('選擇縣市：', citySelect);
       this.citySelect=citySelect;
