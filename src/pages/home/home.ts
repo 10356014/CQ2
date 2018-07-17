@@ -54,6 +54,18 @@ export class HomePage {
       console.log('選擇縣市：', citySelect);
       this.citySelect=citySelect;
       this.selectCity(this.citySelect);
+      this.clickStore();
+      /*
+      if(this.citySelect==null){
+        this.selectOptions = {
+          title: '請先選擇店鋪所在的縣市'
+        }
+      }else{
+        this.selectOptions = {
+          title: '店鋪名稱'
+        }
+      } 
+      */
     });
     
 
@@ -70,15 +82,12 @@ export class HomePage {
     this.sid=this.pushId;
     this.store_name=this.storeSelect;
 
-    
-    /*this.storage.get('rid').then((val) => {
-      this.myRid=Number(val);
-      if ((this.myRid) !==null){
-        this.navCtrl.push(KeyboardPage, {myRid:this.myRid});
-      }
-    });
-    */
   }
+
+  selectOptions = {
+    title: ''
+  }
+
 
 //資料陣列------------------------------------------------------------
 	getData(myString){	
@@ -109,8 +118,8 @@ export class HomePage {
     this.myCityStoreId=[];
 
     this.storage.set('citySelect', citySelect);
+    this.clickStore();
     
-
     for(var i=0; i< this.myAddr.length; i++){
       if (citySelect==this.myAddr[i]){
         var cityStore= this.myStore_name[i];
@@ -119,7 +128,22 @@ export class HomePage {
         this.myCityStoreId.push(cityStoreId);
       }
     }
+
   }  
+//clickStore---------------------------------------------------------
+  clickStore(){
+    
+    if(this.citySelect==null){
+      this.selectOptions = {
+        title: '請先選擇店鋪所在的縣市'
+      }
+    }else{
+      this.selectOptions = {
+        title: '店鋪名稱'
+      }
+    } 
+  }
+
 
 //店鋪名稱------------------------------------------------------------
   selectStore(storeSelect) {  
@@ -139,6 +163,9 @@ export class HomePage {
     console.log(this.pushId);
     
   }  
+
+
+
 
  //連線失敗訊息------------------------------------------------------------
   showAlert() {
