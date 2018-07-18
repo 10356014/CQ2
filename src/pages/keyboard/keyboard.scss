@@ -10,6 +10,7 @@
     font-family: 'Noto Sans TC', sans-serif;
     color: #000000;
     font-weight:200;
+    height:60px;
     
 }
 
@@ -82,7 +83,7 @@
 .keyboard{
     background: rgba(232,230,230,0.2px);
     margin:15px;
-    height:150px;
+    height:35%; 
     padding:10px;
     border-radius: 20px;
     font-family: 'Noto Sans TC', sans-serif;
@@ -91,7 +92,7 @@
 
 .inputNum .button{
     height:60px;
-    background: rgba(53, 109, 206, 0.9);
+    background: rgba(53, 109, 206, 0.9px);
     color: #FFFEFF;
     margin:auto;
     margin-bottom: 20px;
@@ -114,6 +115,11 @@
     background: rgba(232,230,230,0.7px);
     padding:0px;
     border-radius: 20px;
+}
+
+
+.inputBox .input{
+    margin-left: 15px;
 }
 
 //------------------------------------------

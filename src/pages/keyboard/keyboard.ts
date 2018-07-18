@@ -42,7 +42,8 @@ export class KeyboardPage {
         this.store_name = this.navParams.get('store_name'); //接收上一頁的ID
         */
           
-      
+        this.navCtrl.swipeBackEnabled = false;
+        
         this.storage.get('pushId').then((pushId) => {
             console.log('選擇店鋪ID', pushId);
             this.pushId=pushId;
@@ -122,13 +123,27 @@ export class KeyboardPage {
         this.http.post('https://cq2.robelf.com/api.php?api=Extra_getLastNumber',params)
             .subscribe(data => {
                 this.data=data.json()['data'];
-                this.num_plate= this.data.num_plate;
-                console.log(this.num_plate);
-            }, error => {
-                this.showAlert();
+                if(this.data == false){
+                    let params = new FormData();
+                    params.append('num_plate', "1");
+                    params.append('sid', this.sid);
+                    this.http.post('https://cq2.robelf.com/api.php?api=Extra_addNumPlate',params)
+                    .subscribe(data => {
+                            this.last=data.json()['data'];
+                            console.log(this.last);
+                        },
+                    );  
+                }else{
+                    let params = new FormData();
+                    params.append('sid', this.sid);
+                    this.http.post('https://cq2.robelf.com/api.php?api=Extra_getLastNumber',params)
+                        .subscribe(data => {
+                    this.data=data.json()['data'];
+                    this.num_plate= this.data.num_plate;
+                    console.log(this.num_plate);
+                })}       
             });
     }
-
 //預約客叫號-----------------------------------------------------------------------------
    callVIP(){
         let confirm = this.alertCtrl.create({
@@ -306,6 +321,7 @@ export class KeyboardPage {
     }
 //登出---------------------------------------------------------------------------------
     logout(){
+        this.ionViewWillLeave();
         this.storage.clear();
         this.navCtrl.push(HomePage);
 
