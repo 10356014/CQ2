@@ -89,5 +89,18 @@ $colors: (
 @import "noto-sans";
 
 
-$toolbar-ios-height:90px;
+$toolbar-ios-height:50px;
+$toolbar-md-height:50px;
+
+$toolbar-ios-button-color :#ffffff;
+$toolbar-md-button-color :#ffffff; 
+
+
+$toolbar-ios-title-text-color :#ffffff; 
+$toolbar-md-title-text-color :#ffffff; 
+
+$toolbar-ios-title-font-size: 23px;
+$toolbar-md-title-font-size: 23px;
+
+
 

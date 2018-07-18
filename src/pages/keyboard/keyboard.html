@@ -1,19 +1,23 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<ion-content>
-    <ion-navbar> 
-        <ion-title>CQ2叫號系統</ion-title> 
-    </ion-navbar>
-
-    <ion-refresher (ionRefresh)="doRefresh($event)">
-        <ion-refresher-content>刷新</ion-refresher-content>
-    </ion-refresher>
+<ion-content no-bounce>
     
+    <!--
+    <ion-navbar> 
+    </ion-navbar>
+    -->
+    <ion-navbar hideBackButton="true" mode="ios">  
+        <ion-title>CQ2叫號系統</ion-title>  
+        <ion-buttons end>
+            <button ion-button (click)= "logout()" >登出</button>
+        </ion-buttons>
+    </ion-navbar> 
+
+    <div class="store_name">
+        <ion-col>{{store_name}}</ion-col>
+    </div>
+
     <div class="number">
-        <ion-grid>
-            <ion-row>
-                <ion-col>當前號碼:{{num_plate}}</ion-col>
-            </ion-row>
-        </ion-grid>
+        <ion-col>{{num_plate}}</ion-col>
     </div>
 
     <div class="common">
@@ -29,9 +33,10 @@
     <div class ="keyboard">
         <h2>輸入號碼</h2>
         <div class="inputNum">
-            <ion-input type="number"[(ngModel)]="manualInput" max=999 min=1></ion-input>
+            <div class="inputBox">
+                <ion-input tappable type="number"[(ngModel)]="manualInput" max=999 min=1></ion-input>
+            </div>
             <button class="button button-block button-positive" (click)="loadData()">確認</button>
-            
         </div>
     </div>
 </ion-content>

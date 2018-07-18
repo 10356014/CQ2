@@ -1,4 +1,4 @@
-<ion-content padding>
+<ion-content no-bounce padding>
   <div class="header">
     <h1>CQ2快剪專門店</h1>
     <h2>叫號系統</h2>
@@ -19,8 +19,8 @@
             
       <ion-item>
         <ion-label>店鋪名稱</ion-label>
-          <ion-select [(ngModel)]="storeSelect" (ionChange)="selectStore($event)" >
-            <ion-option *ngFor="let name of myStore_name" value= {{name}} > {{name}} </ion-option> 
+          <ion-select [selectOptions]="selectOptions" [(ngModel)]="storeSelect" (ionChange)="selectStore($event)"  (click)="clickStore()" >
+            <ion-option *ngFor="let store of myCityStore" value= {{store}} > {{store}} </ion-option> 
           </ion-select>
       </ion-item>
             

@@ -22,8 +22,14 @@ import { KeyboardPage } from '../pages/keyboard/keyboard';
   imports: [
     BrowserModule,
     HttpModule,
+    IonicStorageModule.forRoot(),
     IonicModule.forRoot(MyApp),
-    IonicStorageModule.forRoot()
+    /*
+    IonicModule.forRoot(MyApp, {  
+    backButtonText: '登出', // 配置返回按钮的文字  
+    backButtonIcon: 'arrow-dropleft-circle' // 配置返回按钮的图标  
+    }) 
+    */
   ],
   bootstrap: [IonicApp],
   entryComponents: [
