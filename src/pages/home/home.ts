@@ -8,6 +8,12 @@ import { Storage } from '@ionic/storage';
 import 'rxjs/add/operator/map';
 import { NativeStorage } from '@ionic-native/native-storage';
 
+//---------------------------------------------
+import { ViewChild } from '@angular/core';
+import { Select } from 'ionic-angular';
+import { Events } from 'ionic-angular';
+
+
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -37,7 +43,9 @@ export class HomePage {
   myCityStore=[];
   myCityStoreId=[];
 
-	constructor(public navCtrl: NavController, public http:Http, public alertCtrl: AlertController, public storage: Storage, public nativeStorage: NativeStorage) {
+  
+
+  constructor(public navCtrl: NavController, public http:Http, public alertCtrl: AlertController, public storage: Storage, public nativeStorage: NativeStorage,public events: Events) {
     let params: URLSearchParams = new URLSearchParams();
 		  this.http.post('https://cq2.robelf.com/api.php?api=Extra_getStoreList', {search: params})			
       .subscribe(
@@ -75,10 +83,13 @@ export class HomePage {
 
   }
 
+  @ViewChild('mySelect') selectRef: Select;
+  /*
   selectOptions = {
-    title: ''
+    title: '',
+    mode: 'ios'
   }
-
+  */
 
 //資料陣列------------------------------------------------------------
 	getData(myString){	
@@ -99,7 +110,7 @@ export class HomePage {
         this.result.add(addr.substring(0,3));
       }  
     }  
-    this.selectCity(this.citySelect);                
+    this.selectCity(this.citySelect);   
   }
 
 //店鋪縣市------------------------------------------------------------
@@ -109,7 +120,7 @@ export class HomePage {
     this.myCityStoreId=[];
 
     this.storage.set('citySelect', citySelect);
-    this.clickStore();
+    this.clickStore()
 
     for(var i=0; i< this.myAddr.length; i++){
       if (citySelect==this.myAddr[i]){
@@ -122,16 +133,41 @@ export class HomePage {
   }  
 
 //clickStore---------------------------------------------------------
+  
   clickStore(){
     
     if(this.citySelect==null){
+      this.selectRef.disabled=true;
+      /*
+      let alert = this.alertCtrl.create({
+        title: '提示',
+        message: '請先選擇店鋪所在的縣市',
+        buttons: [
+          {
+            text: '確認',
+            role: '確認',
+            handler: () => {
+              console.log('Cancel clicked');
+            }
+          }
+        ]
+      });
+      alert.present();
+      this.selectRef.close();
+      
       this.selectOptions = {
-        title: '請先選擇店鋪所在的縣市'
+        title: '請先選擇店鋪所在的縣市',
+        mode: 'ios'
       }
+      */
     }else{
+      this.selectRef.disabled=false;
+      /*
       this.selectOptions = {
-        title: '店鋪名稱'
+        title: '店鋪名稱',
+        mode: 'ios'
       }
+      */
     } 
   }
 
