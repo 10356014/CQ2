@@ -7,6 +7,7 @@ import { Insomnia } from '@ionic-native/insomnia';
 import { HomePage } from '../home/home';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { Storage } from '@ionic/storage';
+import { Keyboard } from '@ionic-native/keyboard';
 
 @IonicPage()
 @Component({
@@ -34,14 +35,14 @@ export class KeyboardPage {
     pushId:any;
     storeSelect:any;
     
-    constructor(public navCtrl: NavController, public navParams: NavParams, public http:Http, public alertCtrl: AlertController, private ref : ChangeDetectorRef, public insomnia: Insomnia, private storage: Storage, private nativeStorage: NativeStorage) {
+    constructor(public navCtrl: NavController, public navParams: NavParams, public http:Http, public alertCtrl: AlertController, private ref : ChangeDetectorRef, public insomnia: Insomnia, private storage: Storage, private nativeStorage: NativeStorage, private keyboard: Keyboard) {
         //this.rid = this.navParams.get('rid'); //接收上一頁的ID
         
         /*
         this.sid = this.navParams.get('sid'); //接收上一頁的ID
         this.store_name = this.navParams.get('store_name'); //接收上一頁的ID
         */
-          
+        
         this.navCtrl.swipeBackEnabled = false;
         
         this.storage.get('pushId').then((pushId) => {
@@ -326,4 +327,5 @@ export class KeyboardPage {
         this.navCtrl.push(HomePage);
 
     }
+
 }

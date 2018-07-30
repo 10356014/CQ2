@@ -28,6 +28,9 @@
 /*---------------------------*/
 /* 定義內容                   */
 /*---------------------------*/
+
+.ion-content { height: auto !important; }
+
 .content{
     max-width:100%;
     background:linear-gradient(350deg,rgb(114, 123, 202),rgb(158, 236, 247));
@@ -55,11 +58,11 @@
 .common .grid{
     margin: auto;
     padding: 0px;
-  }
+}
 .common .col{
     text-align: center;
     margin:auto;
-  }
+}
 .common .button{
     height:60px;
     background: rgba(220,111,115,0.9px);
@@ -78,21 +81,27 @@
     background: rgba(130,28,28,0.7px);
 }
   
+
   //---------------------
 
-.keyboard{
-    background: rgba(232,230,230,0.2px);
+.keyboard {
     margin:15px;
-    height:35%; 
+    padding:10px;
+    
+}
+.keyboard .grid{
+    background: rgba(232,230,230,0.2px);
+    //background: rgba(0, 0, 0,0.5);
+    height:220px;
     padding:10px;
     border-radius: 20px;
     font-family: 'Noto Sans TC', sans-serif;
     font-weight:500;
 }
 
-.inputNum .button{
+.keyboard .button{
     height:60px;
-    background: rgba(53, 109, 206, 0.9px);
+    background: rgba(53, 109, 206, 0.9);
     color: #FFFEFF;
     margin:auto;
     margin-bottom: 20px;
@@ -104,22 +113,29 @@
     border: none;
     border-radius: 10px;
 }
-.inputNum .button:active {
+.keyboard .button:active {
     background: rgba(40,71,128,0.98px);
 }
 
-.inputBox{ 
+.keyboard .inputBox{ 
     margin:auto;
     width: 95%;
     font-family: 'Noto Sans TC', sans-serif;
     background: rgba(232,230,230,0.7px);
     padding:0px;
     border-radius: 20px;
+    padding-left: 15px;
 }
-
-
+/*
 .inputBox .input{
     margin-left: 15px;
 }
+*/
 
-//------------------------------------------
+
+//-----------------------------------------
+.scroll-content { 
+    margin-bottom: 0px !important;
+    padding-bottom: 0px !important;
+    bottom: 0px !important;
+}

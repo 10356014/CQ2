@@ -1,10 +1,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <ion-content no-bounce>
-    
-    <!--
-    <ion-navbar> 
-    </ion-navbar>
-    -->
+
     <ion-navbar hideBackButton="true" mode="ios">  
         <ion-title>CQ2叫號系統</ion-title>  
         <ion-buttons end>
@@ -22,22 +19,41 @@
 
     <div class="common">
         <ion-grid>
-        <ion-row>
-            <ion-col ><button ion-button (click)="callVIP()">預約客</button></ion-col>
-            <ion-col ><button ion-button (click)="callCus()">+1</button></ion-col>
-        </ion-row>
+            <ion-row>
+                <ion-col ><button ion-button (click)="callVIP()">預約客</button></ion-col>
+                <ion-col ><button ion-button (click)="callCus()">+1</button></ion-col>
+            </ion-row>
         </ion-grid>
     </div>
 
-
     <div class ="keyboard">
+        <ion-grid>
+            <ion-row>
+                <ion-col>
+                    <h2>輸入號碼</h2>
+                </ion-col >
+            </ion-row>
+            <ion-row>
+                <ion-col >
+                    <div class="inputBox">
+                        <ion-input tappable type="number"[(ngModel)]="manualInput" max=999 min=1></ion-input>
+                    </div>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                    <ion-col >
+                        <button class="button button-block button-positive" (click)="loadData()">確認</button>
+                    </ion-col >
+            </ion-row>
+        </ion-grid>
+
+        <!--
         <h2>輸入號碼</h2>
-        <div class="inputNum">
-            <div class="inputBox">
-                <ion-input tappable type="number"[(ngModel)]="manualInput" max=999 min=1></ion-input>
-            </div>
-            <button class="button button-block button-positive" (click)="loadData()">確認</button>
+        <div class="inputBox">
+            <ion-input tappable type="number"[(ngModel)]="manualInput" max=999 min=1></ion-input>
         </div>
+        <button class="button button-block button-positive" (click)="loadData()">確認</button>
+        -->
     </div>
 </ion-content>
 

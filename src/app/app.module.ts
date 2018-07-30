@@ -7,6 +7,7 @@ import { HttpModule } from '@angular/Http';
 import { Insomnia } from '@ionic-native/insomnia';
 import { IonicStorageModule } from '@ionic/storage';
 import { NativeStorage } from '@ionic-native/native-storage';
+import { Keyboard } from '@ionic-native/keyboard';
 
 
 import { MyApp } from './app.component';
@@ -23,7 +24,15 @@ import { KeyboardPage } from '../pages/keyboard/keyboard';
     BrowserModule,
     HttpModule,
     IonicStorageModule.forRoot(),
+    //鍵盤
+    IonicModule.forRoot(MyApp,{
+      scrollAssist: true,
+      autoFocusAssist: true
+    })
+
+    /*原始
     IonicModule.forRoot(MyApp),
+    */
     /*
     IonicModule.forRoot(MyApp, {  
     backButtonText: '登出', // 配置返回按钮的文字  
@@ -41,6 +50,7 @@ import { KeyboardPage } from '../pages/keyboard/keyboard';
     StatusBar,
     SplashScreen,
     Insomnia,
+    Keyboard,
     NativeStorage ,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
