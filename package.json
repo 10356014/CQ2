@@ -36,10 +36,12 @@
     "cordova-plugin-ionic-keyboard": "^2.1.2",
     "cordova-plugin-ionic-webview": "^1.2.1",
     "cordova-plugin-nativestorage": "^2.3.2",
+    "cordova-plugin-screen-orientation": "^3.0.1",
     "cordova-plugin-settings-hook": "^0.2.7",
     "cordova-plugin-splashscreen": "^5.0.2",
     "cordova-plugin-whitelist": "^1.3.3",
     "cordova-sqlite-storage": "^2.3.3",
+    "es6-promise-plugin": "^4.2.2",
     "ionic-angular": "3.9.2",
     "ionicons": "3.0.0",
     "npm": "^6.1.0",
@@ -64,7 +66,8 @@
       "cordova-plugin-insomnia": {},
       "cordova-plugin-nativestorage": {},
       "cordova-sqlite-storage": {},
-      "cordova-plugin-settings-hook": {}
+      "cordova-plugin-settings-hook": {},
+      "cordova-plugin-screen-orientation": {}
     },
     "platforms": [
       "ios",
