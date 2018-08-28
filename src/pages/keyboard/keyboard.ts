@@ -9,6 +9,7 @@ import { NativeStorage } from '@ionic-native/native-storage';
 import { Storage } from '@ionic/storage';
 import { Keyboard } from '@ionic-native/keyboard';
 
+
 @IonicPage()
 @Component({
   selector: 'page-keyboard',
@@ -34,6 +35,10 @@ export class KeyboardPage {
     //----------
     pushId:any;
     storeSelect:any;
+
+    //----------
+    pwd:any;
+    
     
     constructor(public navCtrl: NavController, public navParams: NavParams, public http:Http, public alertCtrl: AlertController, private ref : ChangeDetectorRef, public insomnia: Insomnia, private storage: Storage, private nativeStorage: NativeStorage, private keyboard: Keyboard) {
         //this.rid = this.navParams.get('rid'); //接收上一頁的ID
@@ -42,9 +47,14 @@ export class KeyboardPage {
         this.sid = this.navParams.get('sid'); //接收上一頁的ID
         this.store_name = this.navParams.get('store_name'); //接收上一頁的ID
         */
+        this.storage.get('loginPassword').then((loginPassword) => {
+            console.log('loginPassword:', loginPassword);
+            this.checkPassword(loginPassword);
+        });
+
         
         this.navCtrl.swipeBackEnabled = false;
-        
+        //this.keyboard.disableScroll(true);
         this.storage.get('pushId').then((pushId) => {
             console.log('選擇店鋪ID', pushId);
             this.pushId=pushId;
@@ -72,8 +82,27 @@ export class KeyboardPage {
             this.duration = dur;
             this.getLastNum();
         }, 1500);
-    }
 
+        
+
+
+
+    }
+  //確認登入密碼------------------------------------------------------------
+  checkPassword(password) {
+    
+   let params = new FormData();
+     params.append('password', password);
+     this.http.post('https://cq2.robelf.com/api.php?api=Extra_checkPassWord', params, {withCredentials: true})
+     .subscribe(data => {
+       this.pwd=data.json()['result'];
+       console.log(this.pwd);
+     }, error => {
+       this.showAlert();
+     }
+     );
+
+ }
 //停止計時器-----------------------------------------------------------------------------
     ionViewWillLeave(){
         clearInterval(this.interval);

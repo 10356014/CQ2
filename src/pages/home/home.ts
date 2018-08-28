@@ -2,8 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 import { KeyboardPage } from '../keyboard/keyboard';
-import { Http } from '@angular/Http';
-import { URLSearchParams } from '@angular/http';
+import { Http, URLSearchParams, RequestOptions, Headers } from '@angular/Http';
 import { Storage } from '@ionic/storage';
 import 'rxjs/add/operator/map';
 import { NativeStorage } from '@ionic-native/native-storage';
@@ -12,7 +11,6 @@ import { NativeStorage } from '@ionic-native/native-storage';
 import { ViewChild } from '@angular/core';
 import { Select } from 'ionic-angular';
 import { Events } from 'ionic-angular';
-
 
 @Component({
   selector: 'page-home',
@@ -42,8 +40,12 @@ export class HomePage {
   myStore_name=[];
   myCityStore=[];
   myCityStoreId=[];
+  passWordInput:any;
+  pwd:any;
+  RequestOptions:any;
 
-  
+  loginSid:any;
+  loginPassword:any;
 
   constructor(public navCtrl: NavController, public http:Http, public alertCtrl: AlertController, public storage: Storage, public nativeStorage: NativeStorage,public events: Events) {
     let params: URLSearchParams = new URLSearchParams();
@@ -58,6 +60,7 @@ export class HomePage {
       );
     
     this.navCtrl.swipeBackEnabled = false;
+    
 
     //讀取storage
     this.storage.get('citySelect').then((citySelect) => {
@@ -65,6 +68,7 @@ export class HomePage {
       this.citySelect=citySelect;
       this.selectCity(this.citySelect);
       this.clickStore();
+
     });
     
 
@@ -200,6 +204,132 @@ export class HomePage {
     alert.present();
   }
 
+  //確認登入密碼------------------------------------------------------------
+  checkPassword(password) {
+     //記住password
+     this.loginPassword=this.passWordInput;
+     console.log(this.loginPassword);
+
+     this.storage.set('loginPassword', this.loginPassword);
+
+     this.storage.get('loginPassword').then((loginPassword) => {
+       console.log('loginPassword:', loginPassword);
+     });
+
+    let params = new FormData();
+      params.append('password', password);
+      this.http.post('https://cq2.robelf.com/api.php?api=Extra_checkPassWord', params, {withCredentials: true})
+      .subscribe(data => {
+        this.pwd=data.json()['result'];
+        console.log(this.pwd);
+
+        if(this.pwd == 0){
+          let confirm = this.alertCtrl.create({
+            title: '提示',
+            message: '所選店鋪為「' + this.citySelect + this.storeSelect + '」',
+            buttons: [
+              {
+                text: '返回',
+                handler: () => {}
+              },
+              {
+                text: '確認',
+                handler: () => {
+                
+                this.storage.get('pushId').then((pushId) => {
+                    console.log('選擇店鋪ID', pushId);
+                    this.pushId=pushId;
+                });
+                this.storage.get('storeSelect').then((storeSelect) => {
+                  console.log('選擇店鋪', storeSelect);
+                  this.storeSelect=storeSelect;
+                });
+  
+                this.sid=this.pushId;
+                this.store_name=this.storeSelect;
+                this.loginSid=this.sid;
+
+                //登入設定
+                this.storage.set('loginSid', this.loginSid);
+
+                this.storage.get('loginSid').then((loginSid) => {
+                  console.log('Push店sid:', loginSid);
+                });
+
+                //console.log(this.sid);
+                //this.storage.set('sid', this.sid);
+                this.navCtrl.push(KeyboardPage, {sid:this.sid , store_name:this.store_name});
+  
+                /*let params = new FormData();
+                params.append('sid', this.pushId);
+                this.http.post('https://cq2.robelf.com/api.php?api=Extra_getRid',params)
+                .subscribe(data => {
+                    this.rid_result=data.json()['result'];
+                    this.sid=data.json()['data'];
+                    this.navCtrl.push(KeyboardPage, {rid:this.rid});
+                    this.navCtrl.push(KeyboardPage, {sid:this.sid});
+                    if(this.rid_result!=0){
+                      let alert = this.alertCtrl.create({
+                      title: '通知',
+                      subTitle: '店鋪沒有機器人',
+                      buttons: ['返回']
+                      });
+                    alert.present();
+                    }else{
+                      this.storage.set('rid',this.rid);
+                      this.storage.get('rid').then((val) => {
+                        this.myRid=Number(val);
+                        this.navCtrl.push(KeyboardPage, {myRid:this.myRid});
+                        });
+                        this.navCtrl.push(KeyboardPage, {rid:this.rid});
+                    }
+  
+                }, error => {
+                    this.showAlert();
+                });*/
+              }
+            }]
+          });
+          confirm.present()
+        }else{
+          let confirm = this.alertCtrl.create({
+            title: '提示',
+            message: '登入密碼錯誤',
+            buttons: [
+              {
+                text: '返回',handler: () => {}
+              }
+            ] 
+          });
+          confirm.present()
+        } 
+
+      }, error => {
+        this.showAlert();
+      }
+      );
+
+     
+
+      /*let headers = new Headers({"Content-Type":"application/json; charset=UTF-8",
+      "Accept":"application/json",
+      "Access-Control-Allow-Origin" : "*",
+      'Allow-Control-Allow-Origin': '*'
+      });
+      let options = new RequestOptions({ withCredentials: true, headers: headers});
+      let data={'password':password};
+
+      this.http.post('https://cq2.robelf.com/api.php?api=Extra_checkPassWord', data, options)			
+          .subscribe(
+              (data) => {
+                  this.pwd=data.json();
+                  password="";
+                  console.log(this.pwd);
+              },
+              (err) => {this.showAlert();}
+          );	*/
+  }
+
  //防呆訊息----------------------------------------------------------------
   doConfirm() {
     if (this.citySelect == undefined || this.storeSelect == undefined) {
@@ -213,66 +343,20 @@ export class HomePage {
         ] 
       });
       confirm.present()
-    }else{
+    }else if(this.passWordInput == undefined){
       let confirm = this.alertCtrl.create({
         title: '提示',
-        message: '所選店鋪為「' + this.citySelect + this.storeSelect + '」',
+        message: '請輸入登入密碼',
         buttons: [
           {
-            text: '返回',
-            handler: () => {}
-          },
-          {
-            text: '確認',
-            handler: () => {
-            
-            this.storage.get('pushId').then((pushId) => {
-                console.log('選擇店鋪ID', pushId);
-                this.pushId=pushId;
-            });
-            this.storage.get('storeSelect').then((storeSelect) => {
-              console.log('選擇店鋪', storeSelect);
-              this.storeSelect=storeSelect;
-            });
-
-            this.sid=this.pushId;
-            this.store_name=this.storeSelect;
-            //console.log(this.sid);
-            //this.storage.set('sid', this.sid);
-            this.navCtrl.push(KeyboardPage, {sid:this.sid , store_name:this.store_name});
-
-            /*let params = new FormData();
-            params.append('sid', this.pushId);
-            this.http.post('https://cq2.robelf.com/api.php?api=Extra_getRid',params)
-            .subscribe(data => {
-                this.rid_result=data.json()['result'];
-                this.sid=data.json()['data'];
-                this.navCtrl.push(KeyboardPage, {rid:this.rid});
-                this.navCtrl.push(KeyboardPage, {sid:this.sid});
-                if(this.rid_result!=0){
-                  let alert = this.alertCtrl.create({
-                  title: '通知',
-                  subTitle: '店鋪沒有機器人',
-                  buttons: ['返回']
-                  });
-                alert.present();
-                }else{
-                  this.storage.set('rid',this.rid);
-                  this.storage.get('rid').then((val) => {
-                    this.myRid=Number(val);
-                    this.navCtrl.push(KeyboardPage, {myRid:this.myRid});
-                    });
-                    this.navCtrl.push(KeyboardPage, {rid:this.rid});
-                }
-
-            }, error => {
-                this.showAlert();
-            });*/
+            text: '返回',handler: () => {}
           }
-        }]
+        ] 
       });
       confirm.present()
-    }     
+    }else{
+      this.checkPassword(this.passWordInput);
+    }    
   }
 }
 

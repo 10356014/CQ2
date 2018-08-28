@@ -1,12 +1,12 @@
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
 
-<ion-content no-bounce>
-
-    <ion-navbar hideBackButton="true" mode="ios">  
-        <ion-title>CQ2叫號系統</ion-title>  
-        <ion-buttons end>
-            <button ion-button (click)= "logout()" >登出</button>
-        </ion-buttons>
+<ion-content no-bounce class="no-scroll" overflow-scroll="false" >
+    <ion-navbar hideBackButton="true" mode="ios" class="bar-positive">  
+            <ion-title>CQ2叫號系統</ion-title>  
+            <ion-buttons end>
+                <button ion-button (click)= "logout()" >登出</button>
+            </ion-buttons>
     </ion-navbar> 
 
     <div class="store_name">
@@ -36,13 +36,13 @@
             <ion-row>
                 <ion-col >
                     <div class="inputBox">
-                        <ion-input tappable type="number"[(ngModel)]="manualInput" max=999 min=1></ion-input>
+                        <ion-input tappable type="number"[(ngModel)]="manualInput" max=999 min=1 ></ion-input>
                     </div>
                 </ion-col>
             </ion-row>
             <ion-row>
                     <ion-col >
-                        <button class="button button-block button-positive" (click)="loadData()">確認</button>
+                        <button ion-button round (click)="loadData()">確認</button>
                     </ion-col >
             </ion-row>
         </ion-grid>

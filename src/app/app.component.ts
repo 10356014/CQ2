@@ -33,9 +33,20 @@ export class MyApp {
 export class MyApp {
   rootPage:any;
   pushId:any;
+  loginSid:any;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private storage: Storage, private nativeStorage: NativeStorage) {
+    
+    this.storage.get('loginSid').then((loginSid) => {
+      this.loginSid=loginSid;
+      if(this.loginSid==null){
+        this.rootPage=HomePage;
+      }else{
+        this.rootPage=KeyboardPage;   
+      }
+    });   
 
+    /*
     this.storage.get('pushId').then((pushId) => {
       this.pushId=pushId;
       if(this.pushId==null){
@@ -43,9 +54,9 @@ export class MyApp {
       }else{
         this.rootPage=KeyboardPage;   
       }
-
     });   
-
+    */
+   
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.

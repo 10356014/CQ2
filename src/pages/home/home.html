@@ -1,3 +1,4 @@
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <ion-content no-bounce padding>
   <div class="header">
     <h1>CQ2快剪專門店</h1>
@@ -5,9 +6,9 @@
   </div>
  
   <ion-card>
-      <ion-card-header>
-        登入
-      </ion-card-header>
+    <ion-card-header>
+      登入
+    </ion-card-header>
     <ion-card-content>
       
       <ion-item> 
@@ -23,25 +24,13 @@
             <ion-option *ngFor="let store of myCityStore" value= {{store}} > {{store}} </ion-option> 
           </ion-select>
       </ion-item>
-            
+
+      <div class="inputPasswordBox">
+        <ion-input style="vertical-align:middle;" tappable type="number"[(ngModel)]="passWordInput" placeholder="請輸入登入密碼" ></ion-input>
+      </div>
+      
       <button ion-button (click)="doConfirm()" >確認</button>
       
-      
-      <!------------------------------------------------>
-      <!--  
-      <ion-select [(ngModel)]="choices" multiple="true" #mySelect>
-        <ion-option>Appliances</ion-option>
-        <ion-option>Automobile</ion-option>
-        <ion-option>Cellphones</ion-option>
-        <ion-option>Clothing</ion-option>
-        <ion-option>Computers</ion-option>
-        <ion-option>Electronics</ion-option>
-        <ion-option>Toys</ion-option>
-       </ion-select>
-   
-      <button ion-button (click)="openSelect()">Open</button>
-      <button ion-button (click)="closeSelect()">Close</button>
-       -->
     </ion-card-content>
   </ion-card>
 </ion-content>

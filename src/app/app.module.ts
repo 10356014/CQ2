@@ -26,8 +26,15 @@ import { KeyboardPage } from '../pages/keyboard/keyboard';
     IonicStorageModule.forRoot(),
     //鍵盤
     IonicModule.forRoot(MyApp,{
-      scrollAssist: true,
-      autoFocusAssist: true
+      /*
+      scrollAssist: false,
+      autoFocusAssist: false,
+      */
+      scrollPadding: false,  // Valid options appear to be [true, false]
+      scrollAssist: false,
+      autoFocusAssist: false// Valid options appear to be ['instant', 'delay', false]
+        
+
     })
 
     /*原始
