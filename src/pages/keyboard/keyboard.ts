@@ -176,6 +176,7 @@ export class KeyboardPage {
     }
 //預約客叫號-----------------------------------------------------------------------------
    callVIP(){
+       /*
         let confirm = this.alertCtrl.create({
             title: '提示',
             message: '即將呼叫預約客',
@@ -203,6 +204,18 @@ export class KeyboardPage {
             ]
         });
         confirm.present()
+        */
+        let params = new FormData();
+        params.append('num_plate', '-1');
+        params.append('sid', this.sid);
+        this.http.post('https://cq2.robelf.com/api.php?api=Extra_addNumPlate',params)
+        .subscribe(data => {
+                this.vip=data.json()['result'];
+                console.log(this.vip);
+            }, error => {
+                this.showAlert();
+            }
+        );
     } 
 
 //一般客叫號-----------------------------------------------------------------------------
@@ -212,6 +225,7 @@ export class KeyboardPage {
         }else{
             var callNum = String(Number(this.num_plate)+1); 
         }
+        /*
         let confirm = this.alertCtrl.create({
             title: '提示',
             message: '即將呼叫' + callNum + '號',
@@ -246,11 +260,24 @@ export class KeyboardPage {
             ]
         });
         confirm.present()
+        */
+        let params = new FormData();
+        params.append('num_plate', callNum);
+        params.append('sid', this.sid);
+        this.http.post('https://cq2.robelf.com/api.php?api=Extra_addNumPlate',params)
+        .subscribe(data => {
+            this.cus=data.json()['result'];
+            console.log(this.cus);
+            }, error => {
+                this.showAlert();
+            }
+        );
     } 
     
 //手動輸入叫號-----------------------------------------------------------------------------
   callInput(manualInput){
         var inputNum = manualInput;
+        /*
         let confirm = this.alertCtrl.create({
             title: '提示',
             message:  '即將呼叫' + inputNum + '號',
@@ -285,6 +312,25 @@ export class KeyboardPage {
             ]
         });
         confirm.present()
+        */
+        let params = new FormData();
+        params.append('num_plate', inputNum);
+        params.append('sid', this.sid);
+        this.http.post('https://cq2.robelf.com/api.php?api=Extra_addNumPlate',params)
+        .subscribe(data => {
+            this.input=data.json()['result'];
+            this.getLastNum();
+            if(this.input == 1){
+                let alert = this.alertCtrl.create({
+                    title: '提示',
+                    subTitle: inputNum + '號已在叫號列表中',
+                    buttons: ['確定']
+                });
+                alert.present();
+            }}, error => {
+                this.showAlert();
+            }
+        );
     } 
                 
 
@@ -354,7 +400,21 @@ export class KeyboardPage {
         this.ionViewWillLeave();
         this.storage.clear();
         this.navCtrl.push(HomePage);
-
     }
+//重複叫號-----------------------------------------------------------------------------
+callRepeat(){
+    var callNum = String(Number(this.num_plate));
+    let params = new FormData();
+    params.append('num_plate', callNum);
+    params.append('sid', this.sid);
+    this.http.post('https://cq2.robelf.com/api.php?api=Extra_addNumPlate',params)
+    .subscribe(data => {
+        this.cus=data.json()['result'];
+        console.log(this.cus);
+        }, error => {
+            this.showAlert();
+        }
+    );
+} 
 
 }

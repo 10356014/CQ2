@@ -40,6 +40,7 @@ export class MyApp {
     this.storage.get('loginSid').then((loginSid) => {
       this.loginSid=loginSid;
       if(this.loginSid==null){
+        //this.rootPage=KeyboardPage;
         this.rootPage=HomePage;
       }else{
         this.rootPage=KeyboardPage;   
